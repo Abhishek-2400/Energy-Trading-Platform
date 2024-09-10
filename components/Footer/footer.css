@@ -1,0 +1,68 @@
+/* General Footer Styles */
+.footer {
+    background-color: #282c34;
+    color: #ffffff;
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    flex-wrap: wrap;
+    /* Wraps items for better responsiveness */
+}
+
+/* Footer Section Styles */
+.footer-section {
+    flex: 1;
+    margin: 20px;
+    min-width: 200px;
+}
+
+.footer-section h3 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #f1f1f1;
+}
+
+.footer-section p,
+.footer-section a {
+    font-size: 14px;
+    color: #cccccc;
+    text-decoration: none;
+    line-height: 1.6;
+}
+
+.footer-section a:hover {
+    color: #ffffff;
+}
+
+/* Remove bullet points from the list */
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section li {
+    margin-bottom: 10px;
+}
+
+/* Footer Bottom Section */
+.footer-bottom {
+    background-color: #222;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #aaa;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+    }
+}

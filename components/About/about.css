@@ -1,0 +1,106 @@
+/* Container for the entire about section */
+.aboutus {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 40px;
+    padding: 20px;
+    gap: 50px;
+    /* Add gap between video and text for better spacing */
+    flex-wrap: wrap;
+    /* Ensure it wraps properly on smaller screens */
+}
+
+/* About Us heading */
+.about-head {
+    /* display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+    font-size: 25px;
+    font-weight: 200;
+    color: #333;
+    text-transform: uppercase; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 80px;
+}
+
+/* Styling the video */
+#about-video {
+    width: 600px;
+    height: auto;
+    border-radius: 20px;
+}
+
+/* Container for the video */
+.about-video-cont {
+    margin: 20px 30px;
+    flex: 1;
+    /* Allow it to take up space dynamically */
+}
+
+/* Container for the text */
+.about-text-cont {
+    margin: 20px 30px;
+    margin-right: 40px;
+    flex: 1;
+    /* Allow it to take up space dynamically */
+    max-width: 600px;
+    /* Ensure text container has a max width */
+    font-size: 18px;
+    line-height: 1.6;
+    /* Better readability with increased line-height */
+    color: #555;
+    /* Subtle color for the text */
+}
+
+/* Text styling */
+.about-text-cont p {
+    margin-bottom: 20px;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    text-align: justify;
+    /* Justified text for a clean look */
+}
+
+/* Responsive Design */
+
+/* For tablet screens */
+@media (max-width: 768px) {
+    #about-video {
+        width: 100%;
+        height: auto;
+        /* Maintain aspect ratio */
+    }
+
+    .about-text-cont {
+        margin-right: 20px;
+        max-width: 100%;
+    }
+
+    .aboutus {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .about-head {
+        font-size: 35px;
+    }
+}
+
+/* For mobile screens */
+@media (max-width: 480px) {
+    .about-head {
+        font-size: 28px;
+    }
+
+    .about-text-cont p {
+        font-size: 16px;
+    }
+
+    .aboutus {
+        padding: 10px;
+    }
+}

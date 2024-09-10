@@ -1,0 +1,81 @@
+/* Navbar styling */
+.navbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    box-sizing: border-box;
+    z-index: 2;
+    background: rgb(7, 7, 7);
+}
+
+.navbar-heading {
+    font-size: 24px;
+    font-weight: bold;
+    color: rgb(250, 250, 250);
+}
+
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar-menu li {
+    display: inline;
+}
+
+.navbar-menu a {
+    color: rgb(250, 250, 250);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.navbar-menu a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments for tablet screens (max-width: 768px) */
+@media (max-width: 768px) {
+    .navbar {
+        justify-content: space-between;
+        padding: 10px;
+    }
+
+    .navbar-heading {
+        font-size: 20px;
+    }
+
+    .navbar-menu {
+        gap: 15px;
+    }
+
+    .navbar-menu a {
+        font-size: 16px;
+    }
+}
+
+/* Responsive adjustments for mobile screens (max-width: 480px) */
+@media (max-width: 480px) {
+    .navbar {
+        justify-content: space-between;
+        padding: 10px 5px;
+    }
+
+    .navbar-heading {
+        font-size: 18px;
+    }
+
+    .navbar-menu {
+        gap: 10px;
+    }
+
+    .navbar-menu a {
+        font-size: 14px;
+    }
+}

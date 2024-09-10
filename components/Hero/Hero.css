@@ -1,0 +1,86 @@
+.home-container {
+    height: 100vh;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#background-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.homehead {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    z-index: 1;
+    color: white;
+    padding: 0 15px;
+    /* Ensure padding on all screen sizes */
+    text-align: center;
+    /* Center-align text for better readability */
+}
+
+.homehead h1 {
+    font-size: 60px;
+    font-weight: 500;
+    color: white;
+}
+
+.homehead p {
+    font-size: 30px;
+    font-weight: normal;
+    color: white;
+    margin-top: 20px;
+}
+
+.home-button {
+    color: white;
+    background-color: blue;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 30px;
+    font-size: 18px;
+}
+
+/* Responsive Design */
+
+/* Tablet screens (768px and below) */
+@media (max-width: 768px) {
+    .homehead h1 {
+        font-size: 45px;
+    }
+
+    .homehead p {
+        font-size: 22px;
+        /* Slightly reduced from 24px */
+    }
+}
+
+/* Mobile screens (480px and below) */
+@media (max-width: 480px) {
+    .home-container {
+        padding: 0 20px;
+        /* Add some padding to prevent text from touching screen edges */
+    }
+
+    .homehead h1 {
+        font-size: 35px;
+    }
+
+    .homehead p {
+        font-size: 16px;
+        /* Reduced further for small screens */
+    }
+}
