@@ -9,9 +9,11 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.8"
+    "react-typewriter-effect": "^1.1.0",
+    "react-typing-effect": "^2.0.5"
   },
   "devDependencies": {
     "eslint": "^8",
