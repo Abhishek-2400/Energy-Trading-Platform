@@ -6,6 +6,7 @@ import About from "../../components/About/about";
 import Hero from "../../components/Hero/Hero";
 import Footer from "../../components/Footer/footer";
 import Service from "../../components/Services/service";
+import Globe from "../../components/GlobalMarketMap/global";
 export default function Home() {
   return (
     <div className="home">
@@ -13,6 +14,7 @@ export default function Home() {
       <Hero />
       <About />
       <Service />
+      <Globe />
       <Footer />
     </div>
   );

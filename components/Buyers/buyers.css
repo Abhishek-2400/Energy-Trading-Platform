@@ -1,0 +1,83 @@
+/* Styles for the Buyers table */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Center vertically */
+    padding: 20px;
+    background-color: #f0f2f5;
+    /* Soothing background color */
+}
+
+table {
+    width: 90%;
+    /* Cover 90% of the page width */
+    max-width: 1200px;
+    /* Max width of the table */
+    border-collapse: collapse;
+    background-color: #ffffff;
+    /* White background for table */
+    border-radius: 8px;
+    /* Rounded corners for table */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for 3D effect */
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+thead {
+    background-color: #f4f4f4;
+    /* Light gray background for header */
+}
+
+th {
+    background-color: #333;
+    /* Dark background for header cells */
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+    /* Light gray for even rows */
+}
+
+button {
+    background-color: #4CAF50;
+    /* Green background */
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #45a049;
+    /* Darker green on hover */
+}
+
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    th,
+    td {
+        padding: 10px;
+    }
+
+    button {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}

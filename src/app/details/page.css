@@ -1,0 +1,98 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.details h2 {
+    margin-top: 100px;
+    margin-bottom: 30px;
+}
+
+.seller-info {
+    margin-top: 30px;
+    margin-bottom: 30px;
+    width: 90%;
+    /* Adjusted for better spacing on larger screens */
+    max-width: 800px;
+    /* Restricts maximum width for larger screens */
+    padding: 20px;
+    /* Adds padding around the content */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    /* Optional: Adds shadow for better visual separation */
+    border-radius: 8px;
+    /* Optional: Rounds the corners for a softer look */
+    background-color: #f9f9f9;
+    /* Optional: Adds a light background color for contrast */
+}
+
+.seller-info p {
+    margin: 10px 0;
+    /* Adds spacing between each paragraph */
+    font-size: 16px;
+    /* Sets a base font size for readability */
+}
+
+.seller-info span {
+    font-weight: bold;
+    /* Highlights the values */
+    margin-left: 5px;
+    /* Adjusts space between label and value */
+    color: #333;
+    /* Sets color for better readability */
+}
+
+.seller-info button {
+    padding: 10px 20px;
+    /* Adds padding around the button text */
+    background-color: #007bff;
+    /* Sets a blue background color */
+    color: #fff;
+    /* Sets white text color */
+    border: none;
+    /* Removes border */
+    border-radius: 5px;
+    /* Rounds the corners */
+    cursor: pointer;
+    /* Changes cursor to pointer on hover */
+    font-size: 16px;
+    /* Sets font size for better readability */
+    margin-top: 10px;
+    /* Adds space between paragraphs */
+}
+
+/* Styles for tablets */
+@media (max-width: 768px) {
+    .seller-info {
+        width: 100%;
+        /* Full width for tablets */
+        padding: 15px;
+        /* Reduces padding for tablets */
+    }
+
+    .seller-info p {
+        font-size: 14px;
+        /* Reduces font size for tablets */
+    }
+}
+
+/* Styles for mobile phones */
+@media (max-width: 480px) {
+    .seller-info {
+        padding: 10px;
+        /* Further reduces padding for mobile phones */
+    }
+
+    .seller-info p {
+        font-size: 12px;
+        /* Reduces font size for mobile phones */
+    }
+
+    .seller-info span {
+        display: block;
+        /* Displays the value on a new line for better readability on small screens */
+        margin-left: 0;
+        /* Removes left margin for better alignment */
+    }
+}

@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import "./hero.css";
+import Link from "next/link";
 import TypingEffect from 'react-typing-effect';
 
 export default function Hero() {
@@ -25,7 +26,7 @@ export default function Hero() {
 
                 </h1>
                 <p>Indias First Peer to Peer Energy Trading Platform</p>
-                <button className="home-button">Trade Energy</button>
+                <Link href='/marketplace'><button className="home-button">Trade Energy</button></Link>
             </div>
 
 

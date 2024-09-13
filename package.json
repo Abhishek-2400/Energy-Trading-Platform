@@ -9,11 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+    "@react-google-maps/api": "^2.19.3",
+    "chart.js": "^4.4.4",
+    "mapbox-gl": "^3.6.0",
     "next": "14.2.8",
     "react": "^18",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
     "react-typewriter-effect": "^1.1.0",
-    "react-typing-effect": "^2.0.5"
+    "react-typing-effect": "^2.0.5",
+    "socket.io": "^4.7.5",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "eslint": "^8",
