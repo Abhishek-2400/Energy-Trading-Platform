@@ -11,10 +11,10 @@ export default function Service() {
                 <h1>Our Services</h1>
             </div>
             <div className="cards">
-                <Cards image='/ai.png' head='Ai' text='Ai head' />
-                <Cards image='/decentralized.png' head='Ai' text='Ai head' />
-                <Cards image='/monitor.png' head='Ai' text='Ai head' />
-                <Cards image='/pay.png' head='Ai' text='Ai head' />
+                <Cards image='/ai.png' head='Predictive Analysis' text='Predictive Analysis using AI&ML' />
+                <Cards image='/decentralized.png' head='Decentralizarion' text='Decentralized Marketplce using Blockchain' />
+                <Cards image='/monitor.png' head='Realtime Pricing' text='Realtime Price analysis' />
+                <Cards image='/pay.png' head='Secure Payments' text='Smart Contract based Payments' />
             </div>
         </>
     );

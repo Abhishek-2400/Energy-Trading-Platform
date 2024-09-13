@@ -1,6 +1,19 @@
+/* Reset margins and padding on the root elements */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    /* Prevent scrolling if necessary */
+}
+
 /* Fullscreen Map */
 .map-container {
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
     margin: 0;
@@ -51,4 +64,22 @@
     background-color: blue;
     margin-right: 5px;
     border-radius: 50%;
+}
+
+
+/* Adjust search bar (Geocoder) and zoom control positions */
+.mapboxgl-ctrl-top-left,
+.mapboxgl-ctrl-top-right {
+    top: 80px !important;
+    /* Move the controls down from the top */
+}
+
+.mapboxgl-ctrl-geocoder {
+    margin-top: 40px;
+    /* Further adjust the search bar's position */
+}
+
+.mapboxgl-ctrl-zoom {
+    top: 130px !important;
+    /* Move the zoom controls slightly downward */
 }

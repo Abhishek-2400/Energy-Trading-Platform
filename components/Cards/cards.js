@@ -9,7 +9,7 @@ export default function Cards({ image, head, text }) {
                 <img src={image} alt="solar" />
             </div>
             <div className="card-text">
-                <h2>{head}</h2>
+                <h4>{head}</h4>
                 <p>{text}</p>
             </div>
         </div>

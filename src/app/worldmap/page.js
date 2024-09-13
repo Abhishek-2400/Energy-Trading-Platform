@@ -5,6 +5,7 @@ import '@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css'; // Import Geoco
 import '@mapbox/mapbox-gl-geocoder';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import './page.css';
+import Navbar from '../../../components/Navbar/Navbar';
 
 // Set your Mapbox access token here
 mapboxgl.accessToken = "pk.eyJ1IjoiYWJoaXNoZWsyNDAwIiwiYSI6ImNtMHpnYXQxOTAybW0ya3MxenRxZmU2cGEifQ.aw-mjMxCIvFg4Jbs1S54PQ";
@@ -114,17 +115,20 @@ const MapComponent = () => {
     }, []);
 
     return (
-        <div className="map-container">
+        <>
+            <Navbar />
+            <div className="map-container">
 
-            <div className="map-wrapper">
-                <div id="map"></div>
-                <div className="legend">
-                    <div><span className="green-marker"></span> Energy Sellers</div>
-                    <div><span className="blue-marker"></span> Energy Buyers</div>
+                <div className="map-wrapper">
+                    <div id="map"></div>
+                    <div className="legend">
+                        <div><span className="green-marker"></span> Energy Sellers</div>
+                        <div><span className="blue-marker"></span> Energy Buyers</div>
+                    </div>
+
                 </div>
-
             </div>
-        </div>
+        </>
     );
 };
 
