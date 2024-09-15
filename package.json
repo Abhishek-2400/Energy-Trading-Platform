@@ -17,6 +17,8 @@
     "react": "^18",
     "react-chartjs-2": "^5.2.0",
     "react-dom": "^18",
+    "react-modal": "^3.16.1",
+    "react-responsive-modal": "^6.4.2",
     "react-typewriter-effect": "^1.1.0",
     "react-typing-effect": "^2.0.5",
     "socket.io": "^4.7.5",

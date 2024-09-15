@@ -10,7 +10,7 @@ export default function Navbar() {
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/realtimePricing">Realtime Pricing</Link></li>
                 <li><Link href="/worldmap">Global Energy Market</Link></li>
-
+                <li><Link href="/bids">Biding Arena</Link></li>
                 <li><Link href="/marketplace">Market Place</Link></li>
                 <button>Signup</button>
             </ul>

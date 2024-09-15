@@ -1,0 +1,73 @@
+/* General table styles */
+.table-container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.energy-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.energy-table th,
+.energy-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+/* Bid button styling */
+.bidbutton {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.bidbutton:hover {
+    background-color: #0056b3;
+}
+
+/* Modal custom styles */
+.customOverlay {}
+
+.customModal {
+    background: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    text-align: center;
+}
+
+.modalTitle {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.modalDescription {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.bidInput {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.submitBidButton {
+    background-color: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.submitBidButton:hover {
+    background-color: #218838;
+}
