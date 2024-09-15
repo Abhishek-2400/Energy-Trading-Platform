@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import "./hero.css";
+
 import Link from "next/link";
 import TypingEffect from 'react-typing-effect';
 
