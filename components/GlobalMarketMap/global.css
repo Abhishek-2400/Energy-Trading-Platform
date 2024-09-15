@@ -97,14 +97,15 @@
     }
 
     .about-head {
-        font-size: 35px;
+        font-size: 20px;
     }
 }
 
 /* For mobile screens */
 @media (max-width: 480px) {
     .about-head {
-        font-size: 28px;
+        font-size: 17px;
+        text-align: center;
     }
 
     .about-text-cont p {

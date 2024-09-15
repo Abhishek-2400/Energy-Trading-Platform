@@ -13,14 +13,6 @@
 
 /* About Us heading */
 .about-head {
-    /* display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 80px;
-    font-size: 25px;
-    font-weight: 200;
-    color: #333;
-    text-transform: uppercase; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -86,14 +78,14 @@
     }
 
     .about-head {
-        font-size: 35px;
+        font-size: 20px;
     }
 }
 
 /* For mobile screens */
 @media (max-width: 480px) {
     .about-head {
-        font-size: 28px;
+        font-size: 15px;
     }
 
     .about-text-cont p {

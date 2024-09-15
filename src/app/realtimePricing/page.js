@@ -22,7 +22,7 @@ const RealTimeGraph = () => {
 
     useEffect(() => {
         // Connect to the server
-        const socket = io('http://localhost:5000');
+        const socket = io('https://energy-trading-platform-9hq7.onrender.com');
         socket.on('connect', () => {
             console.log('Connected to server');
         });

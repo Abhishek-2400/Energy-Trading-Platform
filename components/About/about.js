@@ -4,9 +4,10 @@ import "./about.css";
 
 export default function About() {
     return (
-        <><div className="about-head">
-            <h1>About Us</h1>
-        </div>
+        <>
+            <div className="about-head">
+                <h1>About Us</h1>
+            </div>
             <div className="aboutus">
 
                 <div className="about-video-cont">

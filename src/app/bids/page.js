@@ -62,7 +62,7 @@ const Bid = () => {
 
     useEffect(() => {
         // Initialize socket connection
-        socketRef.current = io('http://localhost:5000');
+        socketRef.current = io('https://energy-trading-platform-9hq7.onrender.com');
 
         socketRef.current.on('bids', (bids) => {
             console.log('Bids received');
