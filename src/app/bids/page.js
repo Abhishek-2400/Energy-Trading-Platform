@@ -4,6 +4,7 @@ import "./bid.css";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import { Bar } from "react-chartjs-2";
+import io from "socket.io-client";
 import {
     Chart as Chartjs,
     CategoryScale,
@@ -13,17 +14,14 @@ import {
     Tooltip,
     Legend
 } from "chart.js";
+import Navbar from "../../../components/Navbar/Navbar";
 
 Chartjs.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
+
+let socket;
 const Bid = () => {
-    const [data, setData] = useState([
-        { sno: 1, sellerName: "John Energy Co.", highestBid: 150, bid: "", timer: 10 },
-        { sno: 2, sellerName: "SolarMax Ltd.", highestBid: 300, bid: "", timer: 10 },
-        { sno: 3, sellerName: "WindFlow Corp.", highestBid: 200, bid: "", timer: 15 },
-        { sno: 4, sellerName: "GreenWave Energy", highestBid: 400, bid: "", timer: 10 },
-        { sno: 5, sellerName: "EcoFuel Power", highestBid: 250, bid: "", timer: 20 },
-    ]);
+    const [data, setData] = useState([]);
 
     const processData = (data) => {
         return {
@@ -62,35 +60,20 @@ const Bid = () => {
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        const savedData = localStorage.getItem("bids");
-        if (savedData) {
-            setData(JSON.parse(savedData));
+        socket = io('http://localhost:5000');
+
+        socket.on('bids', (bids) => {
+            console.log('Bids received');
+            let newData = [...data];
+            newData = bids;
+            newData = newData.sort((a, b) => b.highestBid - a.highestBid);
+            setData(newData);
+        });
+        return () => {
+            socket.off('bids');
         }
-
-        const timerInterval = setInterval(() => {
-            setData((prevData) => {
-                const updatedData = prevData.map((row) => {
-                    if (row.timer > 0) {
-                        return { ...row, timer: row.timer - 1 };
-                    }
-                    return row;
-                });
-
-                localStorage.setItem("bids", JSON.stringify(updatedData));
-                return updatedData;
-            });
-        }, 1000);
-
-        return () => clearInterval(timerInterval);
     }, []);
 
-    useEffect(() => {
-        const endedBids = data.filter((row) => row.timer === 0);
-        setData((prevData) => prevData.sort((a, b) => b.highestBid - a.highestBid));
-        if (endedBids.length === data.length) {
-            localStorage.removeItem("bids");
-        }
-    }, [data]);
 
     const bidHandler = (name) => {
         console.log(name, initialBid);
@@ -101,6 +84,7 @@ const Bid = () => {
             return row;
         });
         setData(updatedData);
+        socket.emit('newBid', updatedData);
         setOpen(false);
     };
 
@@ -112,55 +96,58 @@ const Bid = () => {
     const onCloseModal = () => setOpen(false);
 
     return (
-        <div className="table-container">
-            <h1>Welcome to Bid Arena</h1>
+        <>
+            <Navbar />
+            <div className="table-container">
+                <h1>Welcome to Bid Arena</h1>
 
-            <Bar data={processData(data)} />
-            <table className="energy-table">
-                <thead>
-                    <tr>
-                        <th>S.No.</th>
-                        <th>Seller Name</th>
-                        <th>Highest Bid (kWh)</th>
-                        <th>Bid (Enter Your Bid)</th>
-                        <th>Timer (Running)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {data.map((row, index) =>
-                        row.timer > 0 ? (
-                            <tr key={row.sno}>
-                                <td>{row.sno}</td>
-                                <td>{row.sellerName}</td>
-                                <td>{row.highestBid}</td>
-                                <td>
-                                    <button className="bidbutton" onClick={onOpenModal}>
-                                        Bid
-                                    </button>
-                                    <Modal
-                                        open={open}
-                                        onClose={onCloseModal}
-                                        center
-                                        classNames={{
-                                            overlay: "customOverlay",
-                                            modal: "customModal",
-                                        }}
-                                    >
-                                        <h2 className="modalTitle">Place Your Bid</h2>
-                                        <p className="modalDescription">
-                                            Enter your desired bid amount for {row.sellerName}.
-                                        </p>
-                                        <input type="number" placeholder="Enter bid" className="bidInput" onChange={handleInput} />
-                                        <button className="submitBidButton" onClick={() => { bidHandler(row.sellerName) }}>Submit Bid</button>
-                                    </Modal>
-                                </td>
-                                <td>{formatTime(row.timer)}</td>
-                            </tr>
-                        ) : null
-                    )}
-                </tbody>
-            </table>
-        </div>
+                <Bar className="barchart" data={processData(data)} />
+                <table className="energy-table">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Seller Name</th>
+                            <th>Highest Bid (kWh)</th>
+                            <th>Bid (Enter Your Bid)</th>
+                            <th>Timer (Running)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((row, index) =>
+                            row.timer > 0 ? (
+                                <tr key={row.sno}>
+                                    <td>{row.sno}</td>
+                                    <td>{row.sellerName}</td>
+                                    <td>{row.highestBid}</td>
+                                    <td>
+                                        <button className="bidbutton" onClick={onOpenModal}>
+                                            Bid
+                                        </button>
+                                        <Modal
+                                            open={open}
+                                            onClose={onCloseModal}
+                                            center
+                                            classNames={{
+                                                overlay: "customOverlay",
+                                                modal: "customModal",
+                                            }}
+                                        >
+                                            <h2 className="modalTitle">Place Your Bid</h2>
+                                            <p className="modalDescription">
+                                                Enter your desired bid amount for {row.sellerName}.
+                                            </p>
+                                            <input type="number" placeholder="Enter bid" className="bidInput" onChange={handleInput} />
+                                            <button className="submitBidButton" onClick={() => { bidHandler(row.sellerName) }}>Submit Bid</button>
+                                        </Modal>
+                                    </td>
+                                    <td>{formatTime(row.timer)}</td>
+                                </tr>
+                            ) : null
+                        )}
+                    </tbody>
+                </table>
+            </div>
+        </>
     );
 };
 

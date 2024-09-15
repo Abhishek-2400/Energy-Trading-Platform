@@ -23,7 +23,9 @@ const RealTimeGraph = () => {
     useEffect(() => {
         // Connect to the server
         const socket = io('http://localhost:5000');
-
+        socket.on('connect', () => {
+            console.log('Connected to server');
+        });
         // Listen for price updates
         socket.on('priceUpdate', (newData) => {
             setDataPoints((prevData) => {
