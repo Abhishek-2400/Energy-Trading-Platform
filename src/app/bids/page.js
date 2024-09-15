@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./bid.css";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
@@ -18,10 +18,13 @@ import Navbar from "../../../components/Navbar/Navbar";
 
 Chartjs.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-
-let socket;
 const Bid = () => {
     const [data, setData] = useState([]);
+    const [initialBid, setInitialBid] = useState(0);
+    const [open, setOpen] = useState(false);
+
+    // Use useRef to store the socket instance
+    const socketRef = useRef(null);
 
     const processData = (data) => {
         return {
@@ -51,29 +54,31 @@ const Bid = () => {
     };
 
     const formatTime = (seconds) => {
-        const minutes = Math.floor(seconds / 60);
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
         const remainingSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+        return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
     };
 
-    const [initialBid, setInitialBid] = useState(0);
-    const [open, setOpen] = useState(false);
-
     useEffect(() => {
-        socket = io('http://localhost:5000');
+        // Initialize socket connection
+        socketRef.current = io('http://localhost:5000');
 
-        socket.on('bids', (bids) => {
+        socketRef.current.on('bids', (bids) => {
             console.log('Bids received');
             let newData = [...data];
             newData = bids;
             newData = newData.sort((a, b) => b.highestBid - a.highestBid);
             setData(newData);
         });
-        return () => {
-            socket.off('bids');
-        }
-    }, []);
 
+        // Clean up the socket connection
+        return () => {
+            if (socketRef.current) {
+                socketRef.current.off('bids');
+            }
+        };
+    }, []);
 
     const bidHandler = (name) => {
         console.log(name, initialBid);
@@ -83,8 +88,16 @@ const Bid = () => {
             }
             return row;
         });
+
         setData(updatedData);
-        socket.emit('newBid', updatedData);
+
+        // Emit the new bid if socket is initialized and connected
+        if (socketRef.current) {
+            socketRef.current.emit('newBid', updatedData);
+        } else {
+            console.error("Socket is not initialized or connected");
+        }
+
         setOpen(false);
     };
 

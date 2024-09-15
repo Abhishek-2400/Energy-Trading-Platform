@@ -10,10 +10,10 @@ const io = socketIo(server, {
     },
 });
 
-let bids = [{ sno: 1, sellerName: "John Energy Co.", highestBid: 150, bid: "", timer: 10 },
-{ sno: 2, sellerName: "SolarMax Ltd.", highestBid: 300, bid: "", timer: 10 },
-{ sno: 3, sellerName: "WindFlow Corp.", highestBid: 200, bid: "", timer: 15 },
-{ sno: 4, sellerName: "GreenWave Energy", highestBid: 400, bid: "", timer: 10 },
+let bids = [{ sno: 1, sellerName: "John Energy Co.", highestBid: 150, bid: "", timer: 300 },
+{ sno: 2, sellerName: "SolarMax Ltd.", highestBid: 300, bid: "", timer: 3600 },
+{ sno: 3, sellerName: "WindFlow Corp.", highestBid: 200, bid: "", timer: 1800 },
+{ sno: 4, sellerName: "GreenWave Energy", highestBid: 400, bid: "", timer: 7200 },
 { sno: 5, sellerName: "EcoFuel Power", highestBid: 250, bid: "", timer: 20 },
 ];
 
