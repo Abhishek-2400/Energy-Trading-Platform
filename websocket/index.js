@@ -39,13 +39,10 @@ setInterval(() => {
     const currentTime = new Date().toLocaleTimeString();
     const randomPrice = (Math.random() * 100).toFixed(2); // Simulating random energy price data
 
-    console.log('Emitting price update:', { time: currentTime, price: randomPrice });
-
     io.emit('priceUpdate', { time: currentTime, price: randomPrice });
 }, 1000); // Emit data every second for testing
 
 setInterval(() => {
-    console.log('ticker called')
     bids = bids.map((bid) => {
         if (bid.timer > 0) {
             bid.timer = bid.timer - 1;
@@ -61,5 +58,5 @@ app.get('/', (req, res) => {
 });
 
 server.listen(5000, () => {
-    console.log('Server is running on http://localhost:5000');
+    console.log('Server is running ');
 });

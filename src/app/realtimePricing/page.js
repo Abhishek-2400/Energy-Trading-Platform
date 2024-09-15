@@ -22,7 +22,7 @@ const RealTimeGraph = () => {
 
     useEffect(() => {
         // Connect to the server
-        const socket = io('https://energy-trading-platform-9hq7.onrender.com');
+        const socket = io('https://websocket-p2p.onrender.com');
         socket.on('connect', () => {
             console.log('Connected to server');
         });

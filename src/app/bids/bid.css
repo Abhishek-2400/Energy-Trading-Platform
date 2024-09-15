@@ -76,3 +76,56 @@
 .submitBidButton:hover {
     background-color: #218838;
 }
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .table-container {
+        width: 90%;
+        margin-top: 100px;
+    }
+
+    .energy-table th,
+    .energy-table td {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .bidInput {
+        width: 100%;
+    }
+
+    .modalTitle {
+        font-size: 20px;
+    }
+
+    .modalDescription {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .table-container {
+        width: 95%;
+        margin-top: 50px;
+    }
+
+    .energy-table th,
+    .energy-table td {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .bidbutton,
+    .submitBidButton {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+
+    .modalTitle {
+        font-size: 18px;
+    }
+
+    .modalDescription {
+        font-size: 12px;
+    }
+}
