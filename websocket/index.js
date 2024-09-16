@@ -22,10 +22,10 @@ io.on('connection', (socket) => {
 
     socket.emit('bids', bids);
     console.log('Bids emitted');
-    // Listen for updated bids
+    // Listen for updated bids(price) 
     socket.on('newBid', (updatedBids) => {
         bids = updatedBids;
-        io.emit('bids', bids); // Broadcast new bids
+        io.emit('bids', bids); // Broadcast new bids(price)
     });
 
     // Debugging disconnection events
@@ -40,7 +40,7 @@ setInterval(() => {
     const randomPrice = (Math.random() * 100).toFixed(2); // Simulating random energy price data
 
     io.emit('priceUpdate', { time: currentTime, price: randomPrice });
-}, 1000); // Emit data every second for testing
+}, 10000); // Emit data every second for testing 
 
 setInterval(() => {
     bids = bids.map((bid) => {
