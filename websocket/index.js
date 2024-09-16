@@ -20,7 +20,7 @@ let bids = [{ sno: 1, sellerName: "John Energy Co.", highestBid: 150, bid: "", t
 io.on('connection', (socket) => {
     console.log('New client connected'); // Debugging
 
-    socket.emit('bids', bids);
+    socket.emit('bids', bids);  //initial emit;
     console.log('Bids emitted');
     // Listen for updated bids(price) 
     socket.on('newBid', (updatedBids) => {

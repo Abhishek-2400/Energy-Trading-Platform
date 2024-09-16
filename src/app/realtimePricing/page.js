@@ -81,12 +81,4 @@ const RealTimeGraph = () => {
 };
 
 export default RealTimeGraph;
-// function Apps() {
-//     return (
-//         <div className="Apps">
-//             <RealTimeGraph />
-//         </div>
-//     );
-// }
 
-// export default Apps;

@@ -68,7 +68,7 @@ const Bid = () => {
             console.log('Bids received');
             let newData = [...data];
             newData = bids;
-            newData = newData.sort((a, b) => b.highestBid - a.highestBid);
+            newData = newData.sort((a, b) => b.highestBid - a.highestBid); //highest bid at top
             setData(newData);
         });
 
@@ -89,7 +89,7 @@ const Bid = () => {
             return row;
         });
 
-        setData(updatedData);
+        setData(updatedData); //send updated bid to 
 
         // Emit the new bid if socket is initialized and connected
         if (socketRef.current) {
