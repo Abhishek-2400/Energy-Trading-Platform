@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
-import { connect } from "@/dbconfig/dbConfig"
-import User from "@/model/users";
-import { decodeToken } from "@/helpers/decodeToken";
+import { connect } from "../../../../dbconfig/dbConfig"
+import User from "../../../../model/users"
+import { decodeToken } from "../../../../helpers/decodeToken";
 
 connect();
 

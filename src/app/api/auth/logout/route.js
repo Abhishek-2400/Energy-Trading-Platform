@@ -5,7 +5,7 @@ export async function GET() {
         const response = NextResponse.json({ message: "User Successfully logged out" })
         response.cookies.set("token", "", { httpOnly: true })
         return response;
-    } catch (error: any) {
+    } catch (error) {
         console.log(error.message)
         return NextResponse.json({ error: error.message }, { status: 500 })
     }
