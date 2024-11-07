@@ -7,25 +7,30 @@ import axios from 'axios';
 
 const Listings = () => {
   const [payload, setPayload] = useState({
+    usermail: "",
     sellername: "",
     priceperunit: 0,
-    tokens: 0,
+    tokens: Math.floor(Math.random() * 100),
     locations: "",
   });
 
   const submitHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/auth/signup', payload);
+      console.log(1)
+      const userinfo = await axios.get('/api/auth/userinfo');
+      console.log("userinfo", userinfo.data.data.email);
+      payload.usermail = userinfo?.data?.data?.email;
+
+      const response = await axios.post('/api/products/addproduct', payload);
       if (response?.data?.message) {
         alert(response.data.message);
-        router.push('/login');
       } else {
-        alert(response?.data?.error || 'Signup failed');
+        alert(response?.data?.error || 'Failed to add product');
       }
     } catch (error) {
-      alert('Signup failed');
-      console.log("Signup failed", error.message);
+      alert('Failed to add product');
+      console.log("Failed to add product", error.message);
     }
   };
 
@@ -67,19 +72,6 @@ const Listings = () => {
               />
             </div>
             <div className="form-group">
-              <label htmlFor="tokens">Tokens</label>
-              <input
-                type="number"
-                id="tokens"
-                name="tokens"
-                value={payload.tokens}
-                onChange={onChangeHandler}
-                placeholder="Enter number of tokens"
-                required
-                min="0"
-              />
-            </div>
-            <div className="form-group">
               <label htmlFor="locations">Location</label>
               <input
                 type="text"
@@ -87,7 +79,7 @@ const Listings = () => {
                 name="locations"
                 value={payload.locations}
                 onChange={onChangeHandler}
-                placeholder="Enter location"
+                placeholder="Enter supply location(s)"
                 required
               />
             </div>

@@ -26,7 +26,9 @@ export async function POST(request) {
         const newUser = {
             username: username,
             email: email,
-            password: hashpassword
+            password: hashpassword,
+            products: [],
+            transactions: []
         }
 
         const registerUser = await User.create(newUser)

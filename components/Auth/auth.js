@@ -39,7 +39,7 @@ const Auth = () => {
             const response = await axios.post('/api/auth/signup', payload);
             if (response?.data?.message) {
                 alert(response.data.message);
-                router.push('/login');
+                router.push('/signup');
             } else {
                 alert(response?.data?.error || 'Signup failed');
             }
