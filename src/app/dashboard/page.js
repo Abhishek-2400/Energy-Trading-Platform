@@ -1,19 +1,21 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import './page.css';
-import Navbar from '../../../components/Navbar/Navbar'
+import Navbar from '../../../components/Navbar/Navbar';
 import UserDashboard from '../../../components/Dashboard/dashboard';
-const Dashboard = () => {
 
+const DashboardPage = () => {
     return (
-        <div>
+        <div className="dashboard-page">
             <Navbar />
-            <div >
-                < UserDashboard />
+            <div className="content-layout">
+                <UserDashboard />
+                <div className="dashboard-content">
+                    {/* Content for each dashboard item goes here */}
+                </div>
             </div>
-
         </div>
     );
 };
 
-export default Dashboard;
+export default DashboardPage;

@@ -1,0 +1,98 @@
+/* Default Sidebar Styles (Compact) */
+.sidebar {
+    width: 300px;
+    /* Reduced width for a compact sidebar */
+    position: fixed;
+    top: 80px;
+    /* Aligns with the navbar height */
+    left: 0;
+    height: calc(100% - 60px);
+    /* Adjusts height based on navbar */
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+}
+
+/* Sidebar items styling */
+.sidebar-item {
+    padding: 10px 15px;
+    font-size: 14px;
+    /* Slightly smaller font size for compactness */
+    font-weight: 500;
+    color: #333;
+    background-color: #fafafa;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    background-color: #e6f7ff;
+    transform: translateX(4px);
+}
+
+/* Link styles inside sidebar */
+.sidebar-item a {
+    text-decoration: none;
+    color: #0070f3;
+    font-size: 13px;
+    font-weight: 600;
+    width: 100%;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.sidebar-item a:hover {
+    color: #005bb5;
+}
+
+.sidebar-item a.active {
+    color: #005bb5;
+    font-weight: bold;
+}
+
+.sidebar-item a::before {
+    content: "• ";
+    color: #0070f3;
+    font-weight: bold;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 150px;
+        /* Even smaller width for mobile */
+        top: 45px;
+        /* Adjust top margin to make room for the navbar */
+        height: calc(100% - 56px);
+        /* Ensure it doesn't overlap the content */
+        padding: 10px 8px;
+    }
+
+    .sidebar-item {
+        font-size: 12px;
+        /* Smaller font size */
+        padding: 8px 10px;
+        /* Reduced padding */
+    }
+
+    .sidebar-item a {
+        font-size: 12px;
+        /* Reduced font size for links */
+    }
+
+    /* Ensure content is adjusted and doesn't overlap */
+    .content-layout {
+        margin-left: 0;
+    }
+}

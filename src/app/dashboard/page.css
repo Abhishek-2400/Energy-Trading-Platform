@@ -1,0 +1,18 @@
+.dashboard-page {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-layout {
+    display: flex;
+    margin-top: 60px;
+    /* Adjust according to Navbar height */
+}
+
+.dashboard-content {
+    margin-left: 250px;
+    /* Same width as the sidebar */
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #ffffff;
+}
