@@ -4,7 +4,7 @@ import bcryptjs from "bcryptjs"
 import { NextRequest, NextResponse } from "next/server";
 
 connect();
-
+console.group(1)
 
 export async function POST(request) {
 
@@ -12,7 +12,9 @@ export async function POST(request) {
     try {
         const reqBody = await request.json()
         const { username, email, password } = reqBody
+
         const Userdata = await User.findOne({ email });
+
         if (Userdata) {
             return NextResponse.json({ error: "User already exists" }, { status: 400 });
         }
@@ -28,7 +30,7 @@ export async function POST(request) {
         }
 
         const registerUser = await User.create(newUser)
-
+        console.log(registerUser)
         return NextResponse.json({ message: "UserSuccessfully Registered", registerUser })
 
     } catch (error) {
