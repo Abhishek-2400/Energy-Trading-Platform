@@ -10,7 +10,7 @@ const Weekly = () => {
             <div className="content-layout">
                 <UserDashboard />
                 <div className="dashboard-content">
-                    Weekly
+                    manage listings
                 </div>
             </div>
         </div>
