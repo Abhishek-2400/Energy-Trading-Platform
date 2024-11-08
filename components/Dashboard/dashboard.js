@@ -8,6 +8,9 @@ const Dashboard = () => {
         <div className="sidebar">
 
             <div className="sidebar-item">
+                <Link href='/analysis/realtimereading'>Real time meter analysis</Link>
+            </div>
+            <div className="sidebar-item">
                 <Link href='/analysis/analyze'>Your Energy analysis</Link>
             </div>
             <div className="sidebar-item">
