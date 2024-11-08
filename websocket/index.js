@@ -18,10 +18,10 @@ let bids = [
     { sno: 5, sellerName: "EcoFuel Power", highestBid: 250, bid: "", timer: 20 },
 ];
 
-let meterReading = 0; // Initialize a base meter reading value
+let meterReading = 0.0; // Initialize a base meter reading value
 
 io.on('connection', (socket) => {
-    console.log('New client connected'); // Debugging
+    console.log('New client connected');
 
     socket.emit('bids', bids); // Initial emit of bids
     console.log('Bids emitted');
@@ -32,7 +32,6 @@ io.on('connection', (socket) => {
         io.emit('bids', bids); // Broadcast updated bids
     });
 
-    // Debugging disconnection events
     socket.on('disconnect', () => {
         console.log('Client disconnected');
     });
@@ -41,8 +40,10 @@ io.on('connection', (socket) => {
 // Emit simulated meter readings
 setInterval(() => {
     const currentTime = new Date().toLocaleTimeString();
-    meterReading += (Math.random() * 0.5).toFixed(2); // Increment reading by a small random amount to simulate usage
-    meterReading = parseFloat(meterReading.toFixed(2)); // Ensure reading stays a realistic decimal
+
+    // Increment reading by a small random amount and ensure it's a number
+    const increment = parseFloat((Math.random() * 0.5).toFixed(2));
+    meterReading = parseFloat((meterReading + increment).toFixed(2)); // Ensure reading stays realistic
 
     io.emit('meterReadingUpdate', { time: currentTime, reading: meterReading });
 }, 10000); // Emit data every 10 seconds

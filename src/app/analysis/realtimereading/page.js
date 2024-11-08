@@ -24,6 +24,7 @@ const RealTimeGraph = () => {
     useEffect(() => {
         // Connect to the server
         const socket = io('https://websocket-p2p.onrender.com');
+        // const socket = io('http://localhost:5000');
         socket.on('connect', () => {
             console.log('Connected to server');
         });
