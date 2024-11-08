@@ -1,0 +1,28 @@
+/* App.css or your preferred CSS file */
+
+.chartcont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 150px;
+    margin-left: 150px;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    /* Center the heading */
+}
+
+canvas {
+
+    /* margin-left: 200px; */
+
+    width: 70% !important;
+    /* Make canvas width responsive */
+    height: 70% !important;
+    /* Make canvas height responsive */
+}

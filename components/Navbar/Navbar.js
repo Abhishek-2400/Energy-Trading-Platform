@@ -35,7 +35,7 @@ export default function Navbar() {
             <div className="navbar-heading"><Link href='/'>EnergyHive</Link></div>
             <ul className="navbar-menu">
                 <li><Link href="/">Home</Link></li>
-                <li><Link href="/realtimePricing">Pricing</Link></li>
+                {/* <li><Link href="/realtimePricing">Pricing</Link></li> */}
                 <li><Link href="/worldmap">Traders</Link></li>
                 <li><Link href="/bids">Bidding</Link></li>
                 <li><Link href="/marketplace">Market</Link></li>

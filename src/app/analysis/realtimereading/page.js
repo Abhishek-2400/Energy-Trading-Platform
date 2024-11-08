@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { io } from 'socket.io-client';
-import Navbar from '../../../components/Navbar/Navbar';
+import Navbar from '../../../../components/Navbar/Navbar';
+import UserDashboard from '../../../../components/Dashboard/dashboard';
 import { Chart as ChartJS, CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend } from 'chart.js';
 import './page.css'
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Legend);
@@ -53,29 +54,33 @@ const RealTimeGraph = () => {
     return (
         <>
             <Navbar />
-            <div className='chartcont'>
-                <h2>Real-Time Meter Reading</h2>
-                <Line
-                    data={dataPoints}
-                    options={{
-                        scales: {
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Time',
+            <div className="content-layout">
+                <UserDashboard />
+                <div className='chartcont'>
+                    <h2>Real-Time Meter Reading</h2>
+                    <Line
+                        data={dataPoints}
+                        options={{
+                            scales: {
+                                x: {
+                                    title: {
+                                        display: true,
+                                        text: 'Time',
+                                    },
+                                },
+                                y: {
+                                    title: {
+                                        display: true,
+                                        text: 'Meter Reading (kWh)',
+                                    },
+                                    min: 0,
                                 },
                             },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Meter Reading (kWh)',
-                                },
-                                min: 0,
-                            },
-                        },
-                    }}
-                />
+                        }}
+                    />
+                </div>
             </div>
+
         </>
     );
 };
