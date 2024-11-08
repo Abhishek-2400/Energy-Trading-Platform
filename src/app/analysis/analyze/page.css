@@ -1,0 +1,25 @@
+.dashboard-page {
+    display: flex;
+    height: 100vh;
+}
+
+.content-layout {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 220px;
+    /* Adjust this based on the sidebar width */
+    padding: 20px;
+    /* Add some padding for inner spacing */
+}
+
+.dashboard-content {
+
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 80px;
+    margin-left: 200px;
+    width: 100%;
+    height: 100vh;
+    /* Additional styling for the dashboard content */
+}

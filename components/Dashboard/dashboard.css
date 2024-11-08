@@ -1,0 +1,90 @@
+/* Default Sidebar Styles (Compact) */
+.sidebar {
+    width: 300px;
+    position: fixed;
+    top: 80px;
+    left: 0;
+    height: calc(100% - 60px);
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, sans-serif;
+    padding: 15px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: background-color 0.3s ease, width 0.3s ease;
+}
+
+/* Sidebar items styling */
+.sidebar-item {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+    background-color: #fafafa;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.sidebar-item:hover {
+    background-color: #e6f7ff;
+    transform: translateX(4px);
+}
+
+/* Link styles inside sidebar */
+.sidebar-item a {
+    text-decoration: none;
+    color: #0070f3;
+    font-size: 13px;
+    font-weight: 600;
+    width: 100%;
+    display: inline-block;
+    transition: color 0.3s ease;
+}
+
+.sidebar-item a:hover {
+    color: #005bb5;
+}
+
+.sidebar-item a.active {
+    color: #005bb5;
+    font-weight: bold;
+}
+
+.sidebar-item a::before {
+    content: "• ";
+    color: #0070f3;
+    font-weight: bold;
+}
+
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 150px;
+        top: 45px;
+        height: calc(100% - 56px);
+        padding: 10px 8px;
+        position: static;
+        /* Changed to static for better alignment on mobile */
+        margin-bottom: 20px;
+    }
+
+    .sidebar-item {
+        font-size: 12px;
+        padding: 8px 10px;
+    }
+
+    .sidebar-item a {
+        font-size: 12px;
+    }
+
+    .content-layout {
+        margin-left: 0;
+    }
+}
