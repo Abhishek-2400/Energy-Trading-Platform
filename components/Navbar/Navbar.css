@@ -95,6 +95,23 @@ html {
     }
 }
 
+.navbar-token {
+    font-size: 1rem;
+    color: #ffbf00;
+    /* Customize the color as needed */
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.navbar-token span {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    gap: 5px;
+    /* Adds space between the emoji and token count */
+}
+
 /* Responsive for mobile screens */
 @media (max-width: 480px) {
     .navbar {

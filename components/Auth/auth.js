@@ -10,7 +10,7 @@ const Auth = () => {
     const [payload, setPayload] = useState({
         username: "",
         password: "",
-        email: ""
+        email: "",
     });
 
     const signupHandler = () => {

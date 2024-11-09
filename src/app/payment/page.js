@@ -4,6 +4,7 @@ import { ethers } from "ethers";
 import { useSearchParams } from 'next/navigation';
 import './page.css';
 import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 // Environment variables loaded in the component
 const CONTRACT_ADDRESS = "0x96EA19cE6e833fAcA06aC5Be66ec9355E78a9c4e";
@@ -285,6 +286,7 @@ const CONTRACT_ABI = JSON.parse('[\
     }\
 ]');
 const EnergyPurchaseForm = () => {
+    const router = useRouter();
 
     const searchParams = useSearchParams();
     const id = searchParams.get('id');
@@ -299,29 +301,29 @@ const EnergyPurchaseForm = () => {
     const [totalCost, setTotalCost] = useState(0);
     const [account, setAccount] = useState(null);
 
-    // const updateTokens = async () => {
-    //     const payload = {
-    //         id: id,
-    //         units: units, //user purchased this will be added to user tokens & deducted form the seller 
-    //         selleremail: selleremail
-    //     }
-    //     try {
-    //         const response = await axios.post('/api/products/updatetoken', payload);
-    //         if (!response) {
-    //             console.log('Error in updating tokens');
-    //         }
-    //         else {
-    //             console.log('Tokens updated successfully', response.data);
-    //         }
-    //     }
-    //     catch (error) {
-    //         console.log('Error in updating tokens');
-    //     }
+    const updateTokens = async () => {
+        const payload = {
+            id: id,
+            units: units, //user purchased this will be added to user tokens & deducted form the seller 
+            selleremail: selleremail
+        }
+        try {
+            const response = await axios.post('/api/products/updatetoken', payload);
+            if (!response) {
+                console.log('Error in updating tokens');
+            }
+            else {
+                console.log('Tokens transferred successfully', response.data);
+                alert('Tokens transferred successfully');
+            }
+        }
+        catch (error) {
+            console.log('Error in updating tokens');
+        }
 
-    // }
+    }
 
     const handleTransaction = async () => {
-        console.log(1)
         const payload = {
             id: id,
             sellername: sellername,
@@ -337,11 +339,13 @@ const EnergyPurchaseForm = () => {
                 console.log('Error in transaction');
             }
             else {
-                console.log('Transaction successful', response.data);
+                console.log('Transaction history successfully updated', response.data);
+                alert('Transaction history successfully updated');
+                router.push('/');
             }
         }
         catch (error) {
-            console.log('Error in transaction', error.message);
+            console.log('Error in updating  transaction history', error.message);
         }
     }
     useEffect(() => {
@@ -396,8 +400,7 @@ const EnergyPurchaseForm = () => {
             await transaction.wait();
             alert("Transaction successful!");
             //call update function here to update the database
-            // updateTokens();
-            console.log(1)
+            updateTokens();
             handleTransaction();
         } catch (error) {
             console.error("Transaction failed", error);

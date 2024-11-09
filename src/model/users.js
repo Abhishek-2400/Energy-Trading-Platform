@@ -22,8 +22,12 @@ const userSchema = new mongoose.Schema({
     transactions: {
         type: Array,
         default: [],
+    },
+    token: {
+        type: Number,
+        default: 0,
     }
 }, { minimize: false }); // Ensures empty arrays are saved to the document
 
-const User = mongoose.models.User || mongoose.model('User', userSchema);
+const User = mongoose.models.Userabhi || mongoose.model('Userabhi', userSchema);
 export default User;
