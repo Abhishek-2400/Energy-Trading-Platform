@@ -1,0 +1,202 @@
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+}
+
+/* Container styling */
+.payment-container {
+    width: 400px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease-in-out;
+}
+
+.payment-container:hover {
+    transform: scale(1.02);
+}
+
+.payment-container h2 {
+    margin-bottom: 25px;
+    font-size: 1.8rem;
+    color: #1a202c;
+}
+
+/* Form group styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 8px;
+    display: block;
+}
+
+input[type="number"],
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    transition: border-color 0.3s ease;
+}
+
+input[type="number"]:focus,
+input[type="text"]:focus {
+    border-color: #4caf50;
+    outline: none;
+}
+
+/* Max units and total cost styling */
+.max-units,
+.total-cost {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 15px;
+}
+
+/* Button styles */
+.connect-button,
+.pay-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.connect-button {
+    background-color: #007bff;
+    color: white;
+}
+
+.connect-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.pay-button {
+    background-color: #28a745;
+    color: white;
+    margin-top: 20px;
+}
+
+.pay-button:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+/* Disabled button styling */
+.pay-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+/* Additional feedback message styling */
+.feedback-message {
+    font-size: 0.9rem;
+    color: #ff0000;
+    margin-top: 10px;
+    display: none;
+}
+
+/* Common Button Styles */
+.custom-button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Common Button Styles */
+.custom-button {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+/* Connect Wallet Button */
+.connect-wallet-button {
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    /* Soft blue gradient */
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+}
+
+.connect-wallet-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 123, 255, 0.4);
+}
+
+.connect-wallet-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 123, 255, 0.2);
+}
+
+/* Pay Now Button */
+.pay-now-button {
+    background: linear-gradient(90deg, #28a745, #218838);
+    /* Soft green gradient */
+    box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3);
+}
+
+.pay-now-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(40, 167, 69, 0.4);
+}
+
+.pay-now-button:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(40, 167, 69, 0.2);
+}
+
+
+/* Responsive styling */
+@media (max-width: 600px) {
+    .payment-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .payment-container h2 {
+        font-size: 1.5rem;
+    }
+}
