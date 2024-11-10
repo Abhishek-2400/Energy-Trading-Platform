@@ -11,7 +11,7 @@ const Dashboard = () => {
                 <Link href='/analysis/realtimereading'>Real time meter analysis</Link>
             </div>
             <div className="sidebar-item">
-                <Link href='/analysis/analyze'>Your Energy analysis</Link>
+                <Link href='https://mqyj3pmnxrtwjlup8dvle6.streamlit.app'>Your Energy analysis</Link>
             </div>
             <div className="sidebar-item">
                 <Link href='/analysis/list'>List Energy for sale</Link>

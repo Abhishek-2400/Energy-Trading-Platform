@@ -61,7 +61,7 @@ const Listings = () => {
             <div className="form-group">
               <label htmlFor="priceperunit">Price per Unit</label>
               <input
-                type="number"
+                type="decimal"
                 id="priceperunit"
                 name="priceperunit"
                 value={payload.priceperunit}
