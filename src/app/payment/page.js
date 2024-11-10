@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import './page.css';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
+export const dynamic = 'force-dynamic';
 // Environment variables loaded in the component
 const CONTRACT_ADDRESS = "0x96EA19cE6e833fAcA06aC5Be66ec9355E78a9c4e";
 const CONTRACT_ABI = JSON.parse('[\
