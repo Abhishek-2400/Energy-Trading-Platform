@@ -46,9 +46,8 @@
 //     );
 // }
 
-
 "use client";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import './page.css';
 import MapComponent from "../../../components/Maps/maps";
 import Navbar from "../../../components/Navbar/Navbar";
@@ -56,24 +55,33 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Marketplace() {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const id = searchParams.get('id');
-    const sellername = searchParams.get('sellername');
-    const selleremail = searchParams.get('selleremail');
-    const priceperunit = searchParams.get('priceperunit');
-    const locations = searchParams.get('locations');
-    const tokens = searchParams.get('tokens');
+    const isBrowser = typeof window !== "undefined"; // Check if we're on the client
+    const [params, setParams] = useState({
+        id: "",
+        sellername: "",
+        selleremail: "",
+        priceperunit: "",
+        locations: "",
+        tokens: "",
+    });
+
+    // Fetch search parameters only on the client side
+    useEffect(() => {
+        if (isBrowser) {
+            const searchParams = useSearchParams();
+            setParams({
+                id: searchParams.get('id') || "",
+                sellername: searchParams.get('sellername') || "",
+                selleremail: searchParams.get('selleremail') || "",
+                priceperunit: searchParams.get('priceperunit') || "",
+                locations: searchParams.get('locations') || "",
+                tokens: searchParams.get('tokens') || "",
+            });
+        }
+    }, [isBrowser]);
 
     const handleTransferOwnership = () => {
-        const query = new URLSearchParams({
-            id: id || "",
-            sellername: sellername || "",
-            selleremail: selleremail || "",
-            priceperunit: priceperunit || "",
-            locations: locations || "",
-            tokens: tokens || ""
-        }).toString();
-
+        const query = new URLSearchParams(params).toString();
         router.push(`/payment?${query}`);
     };
 
@@ -85,10 +93,10 @@ export default function Marketplace() {
                 <MapComponent />
                 <Suspense fallback={<div>Loading...</div>}>
                     <div className="seller-info">
-                        <p>Name of seller <span>: {sellername}</span></p>
-                        <p>Price per unit <span>: ${priceperunit}</span></p>
-                        <p>Available tokens/units <span>: {tokens}</span></p>
-                        <p>Location <span>: {locations}</span></p>
+                        <p>Name of seller <span>: {params.sellername}</span></p>
+                        <p>Price per unit <span>: ${params.priceperunit}</span></p>
+                        <p>Available tokens/units <span>: {params.tokens}</span></p>
+                        <p>Location <span>: {params.locations}</span></p>
                         <button onClick={handleTransferOwnership}>Transfer Ownership</button>
                     </div>
                 </Suspense>
