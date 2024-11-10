@@ -46,8 +46,9 @@
 //     );
 // }
 
+
 "use client";
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import './page.css';
 import MapComponent from "../../../components/Maps/maps";
 import Navbar from "../../../components/Navbar/Navbar";
@@ -55,7 +56,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function Marketplace() {
     const router = useRouter();
-    const isBrowser = typeof window !== "undefined"; // Check if we're on the client
+    const searchParams = useSearchParams(); // Top-level hook call
     const [params, setParams] = useState({
         id: "",
         sellername: "",
@@ -65,20 +66,24 @@ export default function Marketplace() {
         tokens: "",
     });
 
-    // Fetch search parameters only on the client side
+    // Update state with search parameters on client side
     useEffect(() => {
-        if (isBrowser) {
-            const searchParams = useSearchParams();
-            setParams({
-                id: searchParams.get('id') || "",
-                sellername: searchParams.get('sellername') || "",
-                selleremail: searchParams.get('selleremail') || "",
-                priceperunit: searchParams.get('priceperunit') || "",
-                locations: searchParams.get('locations') || "",
-                tokens: searchParams.get('tokens') || "",
-            });
-        }
-    }, [isBrowser]);
+        const id = searchParams.get('id') || "";
+        const sellername = searchParams.get('sellername') || "";
+        const selleremail = searchParams.get('selleremail') || "";
+        const priceperunit = searchParams.get('priceperunit') || "";
+        const locations = searchParams.get('locations') || "";
+        const tokens = searchParams.get('tokens') || "";
+
+        setParams({
+            id,
+            sellername,
+            selleremail,
+            priceperunit,
+            locations,
+            tokens,
+        });
+    }, [searchParams]);
 
     const handleTransferOwnership = () => {
         const query = new URLSearchParams(params).toString();
