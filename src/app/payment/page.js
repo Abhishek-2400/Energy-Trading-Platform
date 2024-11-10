@@ -8,6 +8,7 @@
 // export const dynamic = 'force-dynamic';
 // // Environment variables loaded in the component
 // const CONTRACT_ADDRESS = "0x96EA19cE6e833fAcA06aC5Be66ec9355E78a9c4e";
+
 // const CONTRACT_ABI = JSON.parse('[\
 //     {\
 //         "inputs": [\
@@ -462,20 +463,12 @@
 // };
 
 // export default EnergyPurchaseForm;
-
-
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { ethers } from "ethers";
-import { useSearchParams } from 'next/navigation';
-import './page.css';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
-
-// Force dynamic rendering to avoid SSR issues
-export const dynamic = 'force-dynamic';
-
-const CONTRACT_ADDRESS = "0x96EA19cE6e833fAcA06aC5Be66ec9355E78a9c4e";
+import { useRouter, useSearchParams } from "next/navigation";
+import axios from "axios";
+import "./page.css";
 const CONTRACT_ABI = JSON.parse('[\
     {\
         "inputs": [\
@@ -753,76 +746,31 @@ const CONTRACT_ABI = JSON.parse('[\
         "type": "function"\
     }\
 ]');
+export const dynamic = "force-dynamic";
 
-const EnergyPurchaseForm = () => {
+function PaymentForm() {
     const router = useRouter();
-
-    // Ensure `useSearchParams` is only used on the client side
     const searchParams = useSearchParams();
-    const id = searchParams?.get('id');
-    const sellername = searchParams?.get('sellername');
-    const selleremail = searchParams?.get('selleremail');
-    const unitCost = searchParams?.get('priceperunit');
-    const locations = searchParams?.get('locations');
-    const maxUnitsAvailable = searchParams?.get('tokens');
+
+    // Fetch query parameters
+    const id = searchParams.get("id");
+    const sellername = searchParams.get("sellername");
+    const selleremail = searchParams.get("selleremail");
+    const unitCost = parseFloat(searchParams.get("priceperunit"));
+    const locations = searchParams.get("locations");
+    const maxUnitsAvailable = parseInt(searchParams.get("tokens"), 10);
 
     const [units, setUnits] = useState(0);
     const [totalCost, setTotalCost] = useState(0);
     const [account, setAccount] = useState(null);
 
-    const updateTokens = async () => {
-        const payload = {
-            id: id,
-            units: units,
-            selleremail: selleremail,
-        };
-        try {
-            const response = await axios.post('/api/products/updatetoken', payload);
-            if (response) {
-                console.log('Tokens transferred successfully', response.data);
-                alert('Tokens transferred successfully');
-            } else {
-                console.error('Error in updating tokens');
-            }
-        } catch (error) {
-            console.error('Error in updating tokens:', error.message);
-        }
-    };
-
-    const handleTransaction = async () => {
-        const payload = {
-            id: id,
-            sellername: sellername,
-            selleremail: selleremail,
-            unitCost: unitCost,
-            locations: locations,
-            units: units,
-            totalCost: totalCost,
-        };
-        try {
-            const response = await axios.post('/api/products/transaction', payload);
-            if (response) {
-                console.log('Transaction history successfully updated', response.data);
-                alert('Transaction history successfully updated');
-                router.push('/');
-            } else {
-                console.error('Error in transaction');
-            }
-        } catch (error) {
-            console.error('Error in updating transaction history:', error.message);
-        }
-    };
-
     useEffect(() => {
-        if (units >= 0 && units <= maxUnitsAvailable) {
-            setTotalCost(units * unitCost);
-        } else if (units > maxUnitsAvailable) {
-            setUnits(maxUnitsAvailable);
-        }
+        const calculatedCost = units * unitCost;
+        setTotalCost(units > 0 && units <= maxUnitsAvailable ? calculatedCost : 0);
     }, [units, unitCost, maxUnitsAvailable]);
 
     const connectWallet = async () => {
-        if (typeof window.ethereum !== "undefined") {
+        if (window.ethereum) {
             try {
                 const accounts = await window.ethereum.request({
                     method: "eth_requestAccounts",
@@ -837,6 +785,38 @@ const EnergyPurchaseForm = () => {
         }
     };
 
+    const handleServerPost = async (url, payload, successMessage) => {
+        try {
+            const response = await axios.post(url, payload);
+            if (response.data) {
+                alert(successMessage);
+            } else {
+                console.error(`Error in ${url}`);
+            }
+        } catch (error) {
+            console.error(`Error in ${url}:`, error.message);
+        }
+    };
+
+    const updateTokens = async () => {
+        const payload = { id, units, selleremail };
+        await handleServerPost("/api/products/updatetoken", payload, "Tokens transferred successfully");
+    };
+
+    const handleTransaction = async () => {
+        const payload = {
+            id,
+            sellername,
+            selleremail,
+            unitCost,
+            locations,
+            units,
+            totalCost,
+        };
+        await handleServerPost("/api/products/transaction", payload, "Transaction history successfully updated");
+        router.push("/");
+    };
+
     const handlePayment = async () => {
         if (!account) {
             alert("Please connect your MetaMask wallet first.");
@@ -845,13 +825,17 @@ const EnergyPurchaseForm = () => {
 
         try {
             const provider = new ethers.BrowserProvider(window.ethereum);
-            const signer = await provider.getSigner();
-            const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+            const signer = provider.getSigner();
+            const contract = new ethers.Contract(
+                "0x96EA19cE6e833fAcA06aC5Be66ec9355E78a9c4e",
+                CONTRACT_ABI, // Extracted from the original file or JSON import
+                signer
+            );
 
             const transaction = await contract.initiateTransaction(
-                "0x2Cc6Ac0E2A506f03aCB72a57fA9c1F164739dD4D",
+                "0x2Cc6Ac0E2A506f03aCB72a57fA9c1F164739dD4D", // Replace with actual seller's address
                 units,
-                { value: ethers.parseEther(totalCost.toString()) }
+                { value: ethers.utils.parseEther(totalCost.toString()) }
             );
 
             await transaction.wait();
@@ -859,15 +843,14 @@ const EnergyPurchaseForm = () => {
             updateTokens();
             handleTransaction();
         } catch (error) {
-            console.error("Transaction failed", error);
+            console.error("Transaction failed:", error);
             alert("Transaction failed!");
         }
     };
 
     return (
-        <div style={{ maxWidth: "400px", margin: "0 auto", padding: "20px", border: "1px solid #ccc" }}>
+        <div className="payment-form">
             <h2>Energy Purchase Form</h2>
-
             <label>
                 Units you want to purchase (KWh):
                 <input
@@ -876,43 +859,35 @@ const EnergyPurchaseForm = () => {
                     max={maxUnitsAvailable}
                     value={units}
                     onChange={(e) => {
-                        const value = Number(e.target.value);
-                        if (value <= maxUnitsAvailable) {
-                            setUnits(value);
-                        } else {
-                            alert(`Maximum units available are ${maxUnitsAvailable}`);
-                        }
+                        const value = Math.min(Math.max(Number(e.target.value), 0), maxUnitsAvailable);
+                        setUnits(value);
                     }}
                 />
             </label>
             <p>Max Units Available: {maxUnitsAvailable}</p>
-
-            <label>
-                Platform Fee:
-                <input type="text" value="0" disabled />
-            </label>
-
             <label>
                 Unit Cost (in ETH):
                 <input type="text" value={unitCost} disabled />
             </label>
-
             <label>
                 Total Amount (in ETH):
                 <input type="text" value={totalCost.toFixed(4)} disabled />
             </label>
-
             {!account ? (
                 <button className="custom-button connect-wallet-button" onClick={connectWallet}>
                     Connect Wallet
                 </button>
             ) : (
-                <button className="custom-button pay-now-button" onClick={handlePayment}>
-                    Pay Now
+                <button
+                    className="custom-button payment-button"
+                    onClick={handlePayment}
+                    disabled={units <= 0 || totalCost <= 0}
+                >
+                    Make Payment
                 </button>
             )}
         </div>
     );
-};
+}
 
-export default EnergyPurchaseForm;
+export default PaymentForm;
