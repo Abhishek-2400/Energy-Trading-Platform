@@ -305,7 +305,7 @@
 //     const updateTokens = async () => {
 //         const payload = {
 //             id: id,
-//             units: units, //user purchased this will be added to user tokens & deducted form the seller 
+//             units: units, //user purchased this will be added to user tokens & deducted form the seller
 //             selleremail: selleremail
 //         }
 //         try {
@@ -462,13 +462,18 @@
 //     );
 // };
 
-// export default EnergyPurchaseForm;
+
 "use client";
-import React, { useState, useEffect, Suspense } from "react";
+import React, { Suspense, useState, useEffect } from "react";
+import { useSearchParams } from 'next/navigation';
+import './page.css';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 import { ethers } from "ethers";
-import { useRouter, useSearchParams } from "next/navigation";
-import axios from "axios";
-import "./page.css";
+
+export const dynamic = 'force-dynamic';
+const CONTRACT_ADDRESS = "0x96EA19cE6e833fAcA06aC5Be66ec9355E78a9c4e";
+
 const CONTRACT_ABI = JSON.parse('[\
     {\
         "inputs": [\
@@ -746,31 +751,107 @@ const CONTRACT_ABI = JSON.parse('[\
         "type": "function"\
     }\
 ]');
-export const dynamic = "force-dynamic";
-
-function PaymentForm() {
+// Component that handles the payment process
+function PaymentContent() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    // Fetch query parameters
-    const id = searchParams.get("id");
-    const sellername = searchParams.get("sellername");
-    const selleremail = searchParams.get("selleremail");
-    const unitCost = parseFloat(searchParams.get("priceperunit"));
-    const locations = searchParams.get("locations");
-    const maxUnitsAvailable = parseInt(searchParams.get("tokens"), 10);
-
+    const id = searchParams.get('id');
+    const sellername = searchParams.get('sellername');
+    const selleremail = searchParams.get('selleremail');
+    const unitCost = searchParams.get('priceperunit');
+    const locations = searchParams.get('locations');
+    const maxUnitsAvailable = searchParams.get('tokens');
     const [units, setUnits] = useState(0);
     const [totalCost, setTotalCost] = useState(0);
     const [account, setAccount] = useState(null);
 
+    // Update total cost when units or unit cost changes
     useEffect(() => {
-        const calculatedCost = units * unitCost;
-        setTotalCost(units > 0 && units <= maxUnitsAvailable ? calculatedCost : 0);
+        if (units >= 0 && units <= maxUnitsAvailable) {
+            setTotalCost(units * unitCost);
+        } else if (units > maxUnitsAvailable) {
+            setUnits(maxUnitsAvailable);
+        }
     }, [units, unitCost, maxUnitsAvailable]);
 
+    // Handle transaction
+    const handlePayment = async () => {
+        if (!account) {
+            alert("Please connect your MetaMask wallet first.");
+            return;
+        }
+
+        try {
+            const provider = new ethers.BrowserProvider(window.ethereum);
+            const signer = await provider.getSigner();
+            const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+
+            // Convert total cost to Ether and initiate the transaction
+            const transaction = await contract.initiateTransaction(
+                "0x2Cc6Ac0E2A506f03aCB72a57fA9c1F164739dD4D", // Replace with the actual seller's address
+                units,
+                { value: ethers.parseEther(totalCost.toString()) }
+            );
+
+            await transaction.wait();
+            alert("Transaction successful!");
+            updateTokens();
+            handleTransaction();
+        } catch (error) {
+            console.error("Transaction failed", error);
+            alert("Transaction failed!");
+        }
+    };
+
+    // Update tokens after the transaction
+    const updateTokens = async () => {
+        const payload = {
+            id: id,
+            units: units, // user purchased, this will be added to user tokens & deducted from the seller
+            selleremail: selleremail
+        };
+        try {
+            const response = await axios.post('/api/products/updatetoken', payload);
+            if (!response) {
+                console.log('Error in updating tokens');
+            } else {
+                console.log('Tokens transferred successfully', response.data);
+                alert('Tokens transferred successfully');
+            }
+        } catch (error) {
+            console.log('Error in updating tokens');
+        }
+    };
+
+    // Handle transaction history
+    const handleTransaction = async () => {
+        const payload = {
+            id: id,
+            sellername: sellername,
+            selleremail: selleremail,
+            unitCost: unitCost,
+            locations: locations,
+            units: units, // units bought (token)
+            totalCost: totalCost
+        };
+        try {
+            const response = await axios.post('/api/products/transaction', payload);
+            if (!response) {
+                console.log('Error in transaction');
+            } else {
+                console.log('Transaction history successfully updated', response.data);
+                alert('Transaction history successfully updated');
+                router.push('/');
+            }
+        } catch (error) {
+            console.log('Error in updating transaction history', error.message);
+        }
+    };
+
+    // Connect to MetaMask
     const connectWallet = async () => {
-        if (window.ethereum) {
+        if (typeof window.ethereum !== "undefined") {
             try {
                 const accounts = await window.ethereum.request({
                     method: "eth_requestAccounts",
@@ -785,72 +866,10 @@ function PaymentForm() {
         }
     };
 
-    const handleServerPost = async (url, payload, successMessage) => {
-        try {
-            const response = await axios.post(url, payload);
-            if (response.data) {
-                alert(successMessage);
-            } else {
-                console.error(`Error in ${url}`);
-            }
-        } catch (error) {
-            console.error(`Error in ${url}:`, error.message);
-        }
-    };
-
-    const updateTokens = async () => {
-        const payload = { id, units, selleremail };
-        await handleServerPost("/api/products/updatetoken", payload, "Tokens transferred successfully");
-    };
-
-    const handleTransaction = async () => {
-        const payload = {
-            id,
-            sellername,
-            selleremail,
-            unitCost,
-            locations,
-            units,
-            totalCost,
-        };
-        await handleServerPost("/api/products/transaction", payload, "Transaction history successfully updated");
-        router.push("/");
-    };
-
-    const handlePayment = async () => {
-        if (!account) {
-            alert("Please connect your MetaMask wallet first.");
-            return;
-        }
-
-        try {
-            const provider = new ethers.BrowserProvider(window.ethereum);
-            const signer = provider.getSigner();
-            const contract = new ethers.Contract(
-                "0x96EA19cE6e833fAcA06aC5Be66ec9355E78a9c4e",
-                CONTRACT_ABI, // Extracted from the original file or JSON import
-                signer
-            );
-
-            const transaction = await contract.initiateTransaction(
-                "0x2Cc6Ac0E2A506f03aCB72a57fA9c1F164739dD4D", // Replace with actual seller's address
-                units,
-                { value: ethers.utils.parseEther(totalCost.toString()) }
-            );
-
-            await transaction.wait();
-            alert("Transaction successful!");
-            updateTokens();
-            handleTransaction();
-        } catch (error) {
-            console.error("Transaction failed:", error);
-            alert("Transaction failed!");
-        }
-    };
-
     return (
-        <div className="payment-form">
+        <div className="payment-content">
             <h2>Energy Purchase Form</h2>
+
             <label>
                 Units you want to purchase (KWh):
                 <input
@@ -859,35 +878,50 @@ function PaymentForm() {
                     max={maxUnitsAvailable}
                     value={units}
                     onChange={(e) => {
-                        const value = Math.min(Math.max(Number(e.target.value), 0), maxUnitsAvailable);
-                        setUnits(value);
+                        const value = Number(e.target.value);
+                        if (value <= maxUnitsAvailable) {
+                            setUnits(value);
+                        } else {
+                            alert(`Maximum units available are ${maxUnitsAvailable}`);
+                        }
                     }}
                 />
             </label>
             <p>Max Units Available: {maxUnitsAvailable}</p>
+
+            <label>
+                Platform Fee:
+                <input type="text" value="0" disabled />
+            </label>
+
             <label>
                 Unit Cost (in ETH):
                 <input type="text" value={unitCost} disabled />
             </label>
+
             <label>
                 Total Amount (in ETH):
                 <input type="text" value={totalCost.toFixed(4)} disabled />
             </label>
+
             {!account ? (
                 <button className="custom-button connect-wallet-button" onClick={connectWallet}>
                     Connect Wallet
                 </button>
             ) : (
-                <button
-                    className="custom-button payment-button"
-                    onClick={handlePayment}
-                    disabled={units <= 0 || totalCost <= 0}
-                >
-                    Make Payment
+                <button className="custom-button pay-now-button" onClick={handlePayment}>
+                    Pay Now
                 </button>
             )}
         </div>
     );
 }
 
-export default PaymentForm;
+// Main component wrapped in Suspense
+export default function PaymentPage() {
+    return (
+        <Suspense fallback={<div>Loading payment details...</div>}>
+            <PaymentContent />
+        </Suspense>
+    );
+}
