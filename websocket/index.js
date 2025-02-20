@@ -23,30 +23,33 @@ let meterReading = 0.0; // Initialize a base meter reading value
 io.on('connection', (socket) => {
     console.log('New client connected');
 
-    socket.emit('bids', bids); // Initial emit of bids
+    socket.emit('bids', bids); // Initial emit of bids only the new user
     console.log('Bids emitted');
 
     // Listen for updated bids
     socket.on('newBid', (updatedBids) => {
         bids = updatedBids;
-        io.emit('bids', bids); // Broadcast updated bids
+        io.emit('bids', bids); // Broadcast updated bids to all
     });
+
+    // Emit simulated meter readings
+    setInterval(() => {
+        const currentTime = new Date().toLocaleTimeString();
+        // Simulate variable production (0-10 kW)
+        const newProduction = Math.floor(Math.random() * 10);
+        // Simulate variable consumption (0-15 kW)
+        const newConsumption = Math.floor(Math.random() * 15);
+        const balance = newProduction - newConsumption;
+        socket.emit('meterReadingUpdate', { time: currentTime, reading: newProduction, production: newProduction, consumption: newConsumption, balance: balance });
+    }, 10000); // Emit data every 10 seconds
 
     socket.on('disconnect', () => {
-        console.log('Client disconnected');
+        console.log('Client dissconnected');
     });
+
+
 });
 
-// Emit simulated meter readings
-setInterval(() => {
-    const currentTime = new Date().toLocaleTimeString();
-
-    // Increment reading by a small random amount and ensure it's a number
-    const increment = parseFloat((Math.random() * 0.5).toFixed(2));
-    meterReading = parseFloat((meterReading + increment).toFixed(2)); // Ensure reading stays realistic
-
-    io.emit('meterReadingUpdate', { time: currentTime, reading: meterReading });
-}, 10000); // Emit data every 10 seconds
 
 // Countdown timer for bids
 setInterval(() => {
