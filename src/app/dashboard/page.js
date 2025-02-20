@@ -9,7 +9,9 @@ const DashboardPage = () => {
         <div className="dashboard-page">
             <Navbar />
             <div className="content-layout">
-                <UserDashboard />
+                <div className="sidebar">
+                    <UserDashboard />
+                </div>
                 <div className="dashboard-content">
                     {/* Content for each dashboard item goes here */}
                 </div>
