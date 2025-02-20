@@ -40,8 +40,10 @@ io.on('connection', (socket) => {
         // Simulate variable consumption (0-15 kW)
         const newConsumption = Math.floor(Math.random() * 15);
         const balance = newProduction - newConsumption;
+        console.log('new prod',newProduction)
         socket.emit('meterReadingUpdate', { time: currentTime, reading: newProduction, production: newProduction, consumption: newConsumption, balance: balance });
-    }, 10000); // Emit data every 10 seconds
+    }, 1000); // Emit data every 1 second
+    
 
     socket.on('disconnect', () => {
         console.log('Client dissconnected');
@@ -66,6 +68,6 @@ app.get('/', (req, res) => {
     res.send('Server is running');
 });
 
-server.listen(5000, () => {
-    console.log('Server is running on port 5000');
+server.listen(5500, () => {
+    console.log('Server is running on port 5500');
 });
