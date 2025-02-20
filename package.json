@@ -9,13 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
     "@mapbox/mapbox-gl-geocoder": "^5.0.2",
+    "@mui/icons-material": "^6.4.5",
+    "@mui/material": "^6.4.5",
     "@react-google-maps/api": "^2.19.3",
     "axios": "^1.7.7",
     "bcryptjs": "^2.4.3",
     "chart.js": "^4.4.4",
     "ethers": "^6.13.4",
     "jsonwebtoken": "^9.0.2",
+    "lucide-react": "^0.475.0",
     "mapbox-gl": "^3.6.0",
     "mongoose": "^8.8.0",
     "next": "14.2.8",
