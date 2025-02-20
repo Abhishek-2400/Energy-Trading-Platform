@@ -10,6 +10,7 @@ export async function POST(request) {
         // Parse the request body to get id, units, and selleremail
         const reqBody = await request.json();
         const { id, units, selleremail } = reqBody;
+        console.log(selleremail, 5);
 
         // Decode the user token to get the current logged-in user's ID
         const userId = await decodeToken(request);
@@ -18,6 +19,7 @@ export async function POST(request) {
         const user = await User.find({ _id: userId }).select("-password");
         const seller = await User.find({ email: selleremail }).select("-password");
 
+        //console.log(user, seller, 10);
         // Check if user and seller exist
         if (!user || !seller || seller.length === 0) {
             return NextResponse.json({ error: "User or Seller not found" }, { status: 404 });
@@ -47,7 +49,7 @@ export async function POST(request) {
             { token: seller[0].token, products: sellerProducts },
             { new: true }
         );
-        
+
         return NextResponse.json({ message: "Tokens updated successfully", data1: updatedUser, data2: updatedseller }, { status: 200 });
     } catch (error) {
         console.error("Error during product update:", error.message);

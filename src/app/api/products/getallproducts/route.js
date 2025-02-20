@@ -6,21 +6,20 @@ connect();
 
 export async function GET(request) {
     try {
-        const allproducts = await User.findOne({}, { products: 1, email: 1, _id: 0 });
+        const allusers = await User.find({}, { products: 1, email: 1, _id: 0 });
 
-        // If no products found, handle this case
-        if (!allproducts || !allproducts.products) {
+        // Add email to each product object
+        const productsWithSellerMail = allusers.flatMap(({ email, products }) =>
+            products.map(product => ({ ...product, selleremail: email }))
+        );
+
+        // If no products found 
+        if (!productsWithSellerMail) {
             return NextResponse.json({ error: "No products found" }, { status: 404 });
         }
 
-        // Add email to each product object
-        const productsWithEmail = allproducts.products.map(product => ({
-            ...product,
-            selleremail: allproducts.email // Add the email from the user document
-        }));
-
-        console.log(productsWithEmail);
-        return NextResponse.json({ data: productsWithEmail }, { status: 200 });
+        console.log(productsWithSellerMail, 20);
+        return NextResponse.json({ data: productsWithSellerMail }, { status: 200 });
     } catch (error) {
         console.log(error.message);
         return NextResponse.json({ error: error.message }, { status: 500 });
