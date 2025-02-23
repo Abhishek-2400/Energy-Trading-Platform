@@ -29,5 +29,7 @@ const userSchema = new mongoose.Schema({
     }
 }, { minimize: false }); // Ensures empty arrays are saved to the document
 
+
+
 const User = mongoose.models.Userabhi || mongoose.model('Userabhi', userSchema);
 export default User;

@@ -164,11 +164,9 @@
 
 
 
-
-
 "use client";
 import React, { useState, useEffect } from 'react';
-import { ArrowRight, Battery, Zap } from 'lucide-react';
+import { Zap } from 'lucide-react';
 import './page.css';
 import Navbar from '../../../../components/Navbar/Navbar';
 import UserDashboard from '../../../../components/Dashboard/dashboard';
