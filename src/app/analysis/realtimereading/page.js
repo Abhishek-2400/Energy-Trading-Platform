@@ -55,8 +55,9 @@ const RealTimeGraph = () => {
         });
 
         return () => {
-            if (socket1.connected) socket1.disconnect();
-            if (socket2.connected) socket2.disconnect();
+            socket1.off("meterReadingUpdate");
+            socket1.disconnect();
+            socket2.disconnect();
         };
     }, [userid]); // Ensure `userid` is set before sending messages
 
