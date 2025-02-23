@@ -1,6 +1,7 @@
 import { connect } from "../../../../dbconfig/dbConfig";
 import User from "../../../../model/users";
 import { NextResponse } from "next/server";
+import mongoose from "mongoose";
 
 connect();
 
@@ -10,7 +11,7 @@ export async function POST(request) {
         const { usermail, sellername, priceperunit, tokens, locations } = reqBody;
 
         const productData = {
-            id: Math.floor(Math.random() * 100),
+            id: new mongoose.Types.ObjectId(),
             sellername,
             priceperunit,
             tokens,

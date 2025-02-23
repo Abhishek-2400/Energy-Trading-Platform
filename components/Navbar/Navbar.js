@@ -4,8 +4,9 @@ import './Navbar.css';
 import Link from 'next/link';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
-
+import { useSelector } from 'react-redux';
 export default function Navbar() {
+    const tokens = useSelector((state) => state.user.token);
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [token, setToken] = useState(0);
     const router = useRouter();
@@ -14,7 +15,8 @@ export default function Navbar() {
         const checkAuthStatus = async () => {
             try {
                 const response = await axios.get('/api/auth/checklogin');
-                setToken(response.data.data[0].token);
+                // setToken(response.data.data[0].token);
+                setToken(tokens);
                 setIsAuthenticated(response.data.authenticated);
             } catch (error) {
                 setIsAuthenticated(false);

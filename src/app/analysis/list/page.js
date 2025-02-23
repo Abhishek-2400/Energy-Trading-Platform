@@ -21,6 +21,7 @@ const Listings = () => {
       const userinfo = await axios.get('/api/auth/userinfo');
       console.log("userinfo", userinfo.data.data.email);
       payload.usermail = userinfo?.data?.data?.email;
+      
 
       const response = await axios.post('/api/products/addproduct', payload);
       if (response?.data?.message) {

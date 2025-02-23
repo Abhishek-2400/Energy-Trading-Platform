@@ -3,8 +3,11 @@ import React, { useState } from 'react';
 import './auth.css';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+import { signInSuccess ,tokenSuccess} from '../../src/redux/user/userSlice';
 
 const Auth = () => {
+    const dispatch = useDispatch();
     const router = useRouter();
     const [signup, setsignup] = useState(true);
     const [payload, setPayload] = useState({
@@ -23,6 +26,9 @@ const Auth = () => {
             const response = await axios.post('/api/auth/login', payload);
             if (response?.data?.message) {
                 alert(response.data.message);
+                dispatch(signInSuccess(response.data));
+                dispatch(tokenSuccess(response.data.data.token));
+                console.log(response.data.data.token, 89);
                 router.push('/');
             } else {
                 alert(response?.data?.error || 'Login failed');

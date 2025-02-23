@@ -18,7 +18,6 @@ export async function GET(request) {
             return NextResponse.json({ error: "No products found" }, { status: 404 });
         }
 
-        console.log(productsWithSellerMail, 20);
         return NextResponse.json({ data: productsWithSellerMail }, { status: 200 });
     } catch (error) {
         console.log(error.message);

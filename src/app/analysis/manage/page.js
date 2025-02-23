@@ -4,11 +4,12 @@ import axios from 'axios';
 import './page.css';
 import Navbar from '../../../../components/Navbar/Navbar';
 import UserDashboard from '../../../../components/Dashboard/dashboard';
-
+import { useDispatch } from 'react-redux';
+import { tokenMinus } from '../../../redux/user/userSlice';
 const Weekly = () => {
     const [listings, setListings] = useState([]);
-
-    const handleDelete = async (id) => {
+    const dispatch = useDispatch();
+    const handleDelete = async (id, tokens) => {
         const payload = {
             prodid: id,
         };
@@ -20,6 +21,7 @@ const Weekly = () => {
                 console.log("Product deleted successfully", response.data);
                 // Update the listings state to remove the deleted item
                 setListings(listings.filter((listing) => listing.id !== id));
+                dispatch(tokenMinus(tokens));
             }
         } catch (error) {
             console.error(error);
@@ -60,7 +62,7 @@ const Weekly = () => {
                                 <p><strong>Location:</strong> {listing.locations}</p>
                                 <button
                                     className="delete-button"
-                                    onClick={() => handleDelete(listing.id)}
+                                    onClick={() => handleDelete(listing.id, listing.tokens)}
                                 >
                                     Delete
                                 </button>
