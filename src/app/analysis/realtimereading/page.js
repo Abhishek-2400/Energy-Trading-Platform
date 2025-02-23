@@ -55,6 +55,7 @@ const RealTimeGraph = () => {
             }
         });
 
+        
         return () => {
             if (socket1.connected) socket1.disconnect();
             if (socket2.connected) socket2.disconnect();
