@@ -19,8 +19,8 @@ const RealTimeGraph = () => {
     const [userid, setUserId] = useState("");
     console.log(userid, 111);
     useEffect(() => {
-        const socket1 = io("https://websocket-p2p.onrender.com"); //replace with local host in development
-        const socket2 = io("https://apachekafka-p2p.onrender.com");//replace with local host in development
+        const socket1 = io("http://localhost:5500"); //replace with local host in development
+        const socket2 = io("http://localhost:8080");//replace with local host in development
 
         const fetchUserInfo = async () => {
             try {

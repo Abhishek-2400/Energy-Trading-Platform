@@ -13,7 +13,7 @@ const DashboardPage = () => {
                     <UserDashboard />
                 </div>
                 <div className="dashboard-content">
-                    {/* Content for each dashboard item goes here */}
+     
                 </div>
             </div>
         </div>

@@ -2,8 +2,10 @@
 import React from 'react';
 import Link from 'next/link';
 import './dashboard.css';
-
+import { useSelector } from 'react-redux';
 const Dashboard = () => {
+    const userDetails = useSelector((state) => state.user.currentUser.data);
+    const id = userDetails.email;
     return (
         <div className="sidebar">
 
@@ -21,6 +23,10 @@ const Dashboard = () => {
             </div>
             <div className="sidebar-item">
                 <Link href='/analysis/history'>Transaction History</Link>
+            </div>
+            <div className="sidebar-item">
+            <Link href={`/analysis/smartmeter/${id}`}>Smart Meter</Link>
+
             </div>
         </div>
     );
