@@ -1,5 +1,6 @@
 "use client";
-
+import Navbar from '../../../../../components/Navbar/Navbar';
+import UserDashboard from '../../../../../components/Dashboard/dashboard';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import './smart.css'
@@ -124,11 +125,11 @@ export default function Dashboard({ params }) {
     if (!email) return null;
 
     const chartData = {
-        labels: history.map(entry => entry.time),  // X-axis timestamps
+        labels: history.map(entry => entry.time),  
         datasets: [
             {
                 label: "Total Production",
-                data: history.map(entry => entry.production),  // Y-axis production values
+                data: history.map(entry => entry.production), 
                 borderColor: "green",
                 backgroundColor: "rgba(0, 255, 0, 0.2)",
                 borderWidth: 2,
@@ -136,7 +137,7 @@ export default function Dashboard({ params }) {
             },
             {
                 label: "Total Consumption",
-                data: history.map(entry => entry.consumption),  // Y-axis consumption values
+                data: history.map(entry => entry.consumption),  
                 borderColor: "red",
                 backgroundColor: "rgba(255, 0, 0, 0.2)",
                 borderWidth: 2,
@@ -147,7 +148,7 @@ export default function Dashboard({ params }) {
 
     const getEfficiencyChartData = (efficiencyData) => {
         return {
-            labels: ["Good (>1)", "Average (0.8 - 1)", "Poor (<0.8)"],
+            labels: ["Good (>0.8)", "Average (0.6 - 0.8)", "Poor (<0.6)"],
             datasets: [
                 {
                     label: "Efficiency Ratio Distribution",
@@ -164,82 +165,87 @@ export default function Dashboard({ params }) {
 
 
     return (
-        <div className="dashboard-container">
-            <div className="top-metrics">
-                <div className="metric-box">
-                    <h3>Production</h3>
-                    <p className="totprod">{stats.totalProduction.toFixed(2)} kWh</p>
+        <div>
+            <UserDashboard />
+            <Navbar />
 
+            <div className="dashboard-container">
+
+                <div className="top-metrics">
+                    <div className="metric-box">
+                        <h3>Production</h3>
+                        <p className="totprod">{stats.totalProduction.toFixed(2)} kWh</p>
+
+                    </div>
+                    <div className="metric-box">
+                        <h3> Consumption</h3>
+                        <p className="totcons">{stats.totalConsumption.toFixed(2)} kWh</p>
+
+                    </div>
+                    <div className="metric-box">
+                        <h3>Grid Balance</h3>
+                        <p className={stats.gridbal > 0 ? "totprod" : "totcons"}>
+                            {stats.gridbal} kWh
+                        </p>
+
+
+                    </div>
+
+                    <div className="metric-box">
+                        <h3>Efficiency</h3>
+
+                        <p className={stats.efficiencyRatio.toFixed(2) > 0 ? "totprod" : "totcons"}>
+                            {stats.efficiencyRatio.toFixed(2)} %
+                        </p>
+                    </div>
                 </div>
-                <div className="metric-box">
-                    <h3> Consumption</h3>
-                    <p className="totcons">{stats.totalConsumption.toFixed(2)} kWh</p>
 
+                <div className="charts-container">
+                    <div className="chart prod">
+                        <Line data={chartData} />
+                    </div>
+
+                    <div className="chart session" >
+                        <h3>Efficiency</h3>
+
+                        <Pie data={getEfficiencyChartData([stats.efficiencyRatio > 1 ? 1 : 0, stats.efficiencyRatio >= 0.8 && stats.efficiencyRatio <= 1 ? 1 : 0, stats.efficiencyRatio < 0.8 ? 1 : 0])} options={{
+                            maintainAspectRatio: false,
+                            responsive: true,
+                            plugins: {
+                                legend: {
+                                    position: "bottom",
+                                },
+                            },
+                        }}
+                            height={180}
+                            width={180}
+                        />
+
+                    </div>
                 </div>
-                <div className="metric-box">
-                    <h3>Grid Balance</h3>
-                    <p className={stats.gridbal > 0 ? "totprod" : "totcons"}>
-                        {stats.gridbal}
-                    </p>
 
 
-                </div>
+                <div className="top-metrics">
+                    <div className="metric-box">
+                        <h3>Peak Production</h3>
+                        <p className="totprod">⬆ {stats.peakProduction.toFixed(2)} kWh</p>
 
-                <div className="metric-box">
-                    <h3>Efficiency</h3>
-                    {/* <span className="increase">⬆ </span> */}
-                    <p className={stats.efficiencyRatio.toFixed(2) > 0 ? "totprod" : "totcons"}>
-                        {stats.efficiencyRatio.toFixed(2)}
-                    </p>
+                    </div>
+                    <div className="metric-box">
+                        <h3> Peak Consumption</h3>
+                        <p className="totcons">⬆ {stats.peakConsumption.toFixed(2)} kWh</p>
+
+                    </div>
+                    <div className="metric-box">
+                        <h3>Average Production</h3>
+                        <p className="totprod"> {stats.avgProduction.toFixed(2)} kWh</p>
+                    </div>
+                    <div className="metric-box">
+                        <h3>Average Consumption</h3>
+                        <p className="totcons"> {stats.avgConsumption.toFixed(2)} kWh</p>
+                    </div>
                 </div>
             </div>
-
-            <div className="charts-container">
-                <div className="chart revenue">
-                    <Line data={chartData} />
-                </div>
-
-                <div className="chart session">
-                    <h3>Efficiency</h3>
-                    
-                        <Pie data={getEfficiencyChartData([stats.efficiencyRatio > 1 ? 1 : 0, stats.efficiencyRatio >= 0.8 && stats.efficiencyRatio <= 1 ? 1 : 0, stats.efficiencyRatio < 0.8 ? 1 : 0])} />
-                  
-                </div>
-            </div>
-
-          
-            <div className="top-metrics">
-                <div className="metric-box">
-                    <h3>Peak Production</h3>
-                    <p className="totprod">⬆ {stats.peakProduction.toFixed(2)} kWh</p>
-
-                </div>
-                <div className="metric-box">
-                    <h3> Peak Consumption</h3>
-                    <p className="totcons">⬆ {stats.peakConsumption.toFixed(2)} kWh</p>
-
-                </div>
-                <div className="metric-box">
-                    <h3>Average Production</h3>
-                    <p className="totprod"> {stats.avgProduction.toFixed(2)} kWh</p>
-                </div>
-                <div className="metric-box">
-                    <h3>Average Consumption</h3>
-                    <p className="totcons"> {stats.avgConsumption.toFixed(2)} kWh</p>
-                </div>
-            </div>
-
-
-
-
-
-
-
-            <div className="chart users">
-
-            </div>
-
-
         </div>
 
     );

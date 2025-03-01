@@ -151,29 +151,7 @@ const RealTimeGraph = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <div className="offers-container">
-                                    <h3>Your Active Offers</h3>
-                                    <div className="offers-list">
-                                        {tokenOffers.map((offer) => (
-                                            <div key={offer.id} className="offer-box">
-                                                <div className="offer-header">
-                                                    <span className="offer-amount">{offer.amount} tokens</span>
-                                                    <span className="offer-time">{offer.timestamp}</span>
-                                                </div>
-                                                <div className="offer-details">
-                                                    <span className="offer-price">${offer.price} per token</span>
-                                                    <button
-                                                        onClick={() => cancelOffer(offer.id)}
-                                                        className="cancel-btn"
-                                                    >
-                                                        Cancel
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                        {tokenOffers.length === 0 && <div className="no-offers">No active offers</div>}
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
