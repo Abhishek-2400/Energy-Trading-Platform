@@ -53,6 +53,9 @@ export default function Dashboard({ params }) {
                 const peakConsumption = Math.max(...data.map(record => record.totalConsumption));
                 const count = data.length;
 
+
+
+
                 setStats({
                     totalProduction,
                     totalConsumption,
@@ -60,13 +63,14 @@ export default function Dashboard({ params }) {
                     avgConsumption: totalConsumption / count,
                     peakProduction,
                     peakConsumption,
-
                     efficiencyRatio: totalProduction / (totalConsumption || 1),
                     surplusEnergy: Math.max(0, totalProduction - totalConsumption),
                     energyDeficit: Math.max(0, totalConsumption - totalProduction),
                     gridbal: totalProduction - totalConsumption,
                     count,
                 });
+                console.log(totalConsumption,89)
+                console.log(totalProduction,89)
 
             } catch (error) {
                 console.error("Error fetching records:", error.message);

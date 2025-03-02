@@ -1,0 +1,106 @@
+.dashboard {
+    max-width: 760px;
+    margin: auto;
+    margin-top: 16vh;
+    margin-left: 30vw;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    text-align: center;
+    
+}
+
+.dashboard-title {
+    font-size: 22px;
+    font-weight: bold;
+    color: #444;
+}
+
+.energy-stats {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+}
+
+.energy-values {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 10px;
+}
+
+.energy-box {
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.production {
+    background: #ffcc80;
+    color: #e65100;
+    padding: 40px;
+}
+
+.consumption {
+    background: #90caf9;
+    color: #0d47a1;
+    padding: 40px;
+}
+
+.balance {
+    background: #a5d6a7;
+    color: #1b5e20;
+    padding: 40px;
+}
+
+.tokens-section {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.token-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2e7d32;
+}
+
+.sell-offer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.sell-input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: center;
+}
+
+.sell-btn {
+    padding: 10px;
+    background: #424242;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.sell-btn:hover {
+    background: #212121;
+}

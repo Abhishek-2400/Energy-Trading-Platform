@@ -11,7 +11,7 @@ const userSlice = createSlice({
   initialState,
   reducers: {
     signInStart: (state) => {
-      //state.loading = true;
+
     },
     signInSuccess: (state, action) => {
       state.currentUser = action.payload;
@@ -27,6 +27,9 @@ const userSlice = createSlice({
     },
     tokenMinus: (state, action) => {
       state.token -= action.payload;
+    },
+    tokenPlus: (state, action) => {
+      state.token += action.payload;
     }
 
   },
@@ -38,6 +41,7 @@ export const {
   signOutUserSuccess,
   tokenSuccess,
   tokenMinus,
+  tokenPlus
 
 } = userSlice.actions;
 
