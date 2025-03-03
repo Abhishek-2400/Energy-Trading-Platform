@@ -19,9 +19,8 @@ const RealTimeGraph = () => {
     const [userid, setUserId] = useState("");
     console.log(userid, 111);
     useEffect(() => {
-        const socket1 = io("http://localhost:5500"); //replace with local host in development
-        const socket2 = io("http://localhost:8080");//replace with local host in development
-
+        const socket1 = io("https://websocket-p2p.onrender.com");
+        const socket2 = io("https://apachekafka-p2p.onrender.com");
         const fetchUserInfo = async () => {
             try {
                 const userinfo = await axios.get("/api/auth/userinfo");
@@ -55,7 +54,7 @@ const RealTimeGraph = () => {
             }
         });
 
-        
+
         return () => {
             if (socket1.connected) socket1.disconnect();
             if (socket2.connected) socket2.disconnect();
@@ -88,7 +87,7 @@ const RealTimeGraph = () => {
             return prev.filter((o) => o.id !== offerId);
         });
     };
-    
+
 
     return (
         <div className="dashboard-page">
@@ -151,7 +150,7 @@ const RealTimeGraph = () => {
                                         </button>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>

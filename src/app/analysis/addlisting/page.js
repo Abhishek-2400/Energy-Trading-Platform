@@ -64,8 +64,10 @@ const EnergyTradingDashboard = () => {
 
 
             setTokens((prev) => prev - amount);
+            setGridBalance(gridBalance - amount)
             setAmount("");
             setPrice("");
+            alert("Tokens sucessfully added ")
         } catch (error) {
             console.error("Error creating sell offer:", error.response?.data || error.message);
         }
@@ -75,8 +77,8 @@ const EnergyTradingDashboard = () => {
         fetchData();
         const interval = setInterval(fetchData, 10000);
         return () => clearInterval(interval);
-        window.location.reload()
-    }, [tokens]);
+
+    }, []);
 
     return (
         <div>
