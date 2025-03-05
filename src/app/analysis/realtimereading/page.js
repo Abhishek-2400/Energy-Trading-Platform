@@ -8,6 +8,7 @@ import UserDashboard from "../../../../components/Dashboard/dashboard";
 import "./page.css";
 
 const RealTimeGraph = () => {
+
     const [solarProduction, setSolarProduction] = useState(0);
     const [consumption, setConsumption] = useState(0);
     const [tokens, setTokens] = useState(500);
@@ -18,9 +19,8 @@ const RealTimeGraph = () => {
     const [userid, setUserId] = useState("");
     console.log(userid, 111);
     useEffect(() => {
-        const socket1 = io("https://websocket-p2p.onrender.com"); //replace with local host in development
-        const socket2 = io("https://apachekafka-p2p.onrender.com");//replace with local host in development
-
+        const socket1 = io("https://websocket-p2p.onrender.com");
+        const socket2 = io("https://apachekafka-p2p.onrender.com");
         const fetchUserInfo = async () => {
             try {
                 const userinfo = await axios.get("/api/auth/userinfo");
@@ -54,6 +54,7 @@ const RealTimeGraph = () => {
             }
         });
 
+
         return () => {
             socket1.off("meterReadingUpdate");
             socket1.disconnect();
@@ -61,7 +62,7 @@ const RealTimeGraph = () => {
         };
     }, [userid]); // Ensure `userid` is set before sending messages
 
-    const createOffer = () => {
+    const createOffer = async () => {
         if (!offerAmount || !offerPrice || offerAmount > tokens) return;
 
         const newOffer = {
@@ -87,6 +88,7 @@ const RealTimeGraph = () => {
             return prev.filter((o) => o.id !== offerId);
         });
     };
+
 
     return (
         <div className="dashboard-page">
@@ -126,7 +128,7 @@ const RealTimeGraph = () => {
                                     <div className="metric-box">
                                         <h3>Energy Tokens</h3>
                                         <div className="token-balance">{tokens.toFixed(1)} tokens</div>
-                                        <div className="input-group">
+                                        {/* <div className="input-group">
                                             <input
                                                 type="number"
                                                 placeholder="Amount"
@@ -139,39 +141,17 @@ const RealTimeGraph = () => {
                                                 value={offerPrice}
                                                 onChange={(e) => setOfferPrice(e.target.value)}
                                             />
-                                        </div>
-                                        <button
+                                        </div> */}
+                                        {/* <button
                                             onClick={createOffer}
                                             disabled={!offerAmount || !offerPrice || offerAmount > tokens}
                                             className="create-offer-btn"
                                         >
                                             Create Sell Offer
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
-                                <div className="offers-container">
-                                    <h3>Your Active Offers</h3>
-                                    <div className="offers-list">
-                                        {tokenOffers.map((offer) => (
-                                            <div key={offer.id} className="offer-box">
-                                                <div className="offer-header">
-                                                    <span className="offer-amount">{offer.amount} tokens</span>
-                                                    <span className="offer-time">{offer.timestamp}</span>
-                                                </div>
-                                                <div className="offer-details">
-                                                    <span className="offer-price">${offer.price} per token</span>
-                                                    <button
-                                                        onClick={() => cancelOffer(offer.id)}
-                                                        className="cancel-btn"
-                                                    >
-                                                        Cancel
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        ))}
-                                        {tokenOffers.length === 0 && <div className="no-offers">No active offers</div>}
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>
