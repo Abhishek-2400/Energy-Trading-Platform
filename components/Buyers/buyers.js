@@ -9,7 +9,14 @@ export default function Buyers() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('/api/products/getallproducts');
+                // const response = await axios.get('/api/products/getallproducts');
+                const response = await axios.get('/api/products/getallproducts', {
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
                 if (!response) {
                     console.log('Error fetching data');
                 } else {
