@@ -127,7 +127,7 @@ const RealTimeGraph = () => {
                                     <div className="metric-box">
                                         <h3>Energy Tokens</h3>
                                         <div className="token-balance">{tokens.toFixed(1)} tokens</div>
-                                        <div className="input-group">
+                                        {/* <div className="input-group">
                                             <input
                                                 type="number"
                                                 placeholder="Amount"
@@ -140,14 +140,14 @@ const RealTimeGraph = () => {
                                                 value={offerPrice}
                                                 onChange={(e) => setOfferPrice(e.target.value)}
                                             />
-                                        </div>
-                                        <button
+                                        </div> */}
+                                        {/* <button
                                             onClick={createOffer}
                                             disabled={!offerAmount || !offerPrice || offerAmount > tokens}
                                             className="create-offer-btn"
                                         >
                                             Create Sell Offer
-                                        </button>
+                                        </button> */}
                                     </div>
                                 </div>
 

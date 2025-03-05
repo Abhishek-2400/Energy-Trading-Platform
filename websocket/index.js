@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
     setInterval(() => {
         const currentTime = new Date().toLocaleTimeString();
         // Simulate variable production (0-10 kW)
-        const newProduction = Math.floor(Math.random() * 10);
+        const newProduction = Math.floor(Math.random() * 15);
         // Simulate variable consumption (0-5 kW)
         const newConsumption = Math.floor(Math.random() * 5);
         const balance = newProduction - newConsumption;

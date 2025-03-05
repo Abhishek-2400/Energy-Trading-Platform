@@ -69,8 +69,8 @@ export default function Dashboard({ params }) {
                     gridbal: totalProduction - totalConsumption,
                     count,
                 });
-                console.log(totalConsumption,89)
-                console.log(totalProduction,89)
+                console.log(totalConsumption, 89)
+                console.log(totalProduction, 89)
 
             } catch (error) {
                 console.error("Error fetching records:", error.message);
@@ -113,7 +113,7 @@ export default function Dashboard({ params }) {
                         efficiencyRatio: updatedTotalProduction / (updatedTotalConsumption || 1),
                         surplusEnergy: Math.max(0, updatedTotalProduction - updatedTotalConsumption),
                         energyDeficit: Math.max(0, updatedTotalConsumption - updatedTotalProduction),
-                        gridbal: updatedTotalConsumption - updatedTotalProduction,
+                        gridbal: updatedTotalProduction - updatedTotalConsumption,
                         count: updatedCount,
                     };
                 });
@@ -129,11 +129,11 @@ export default function Dashboard({ params }) {
     if (!email) return null;
 
     const chartData = {
-        labels: history.map(entry => entry.time),  
+        labels: history.map(entry => entry.time),
         datasets: [
             {
                 label: "Total Production",
-                data: history.map(entry => entry.production), 
+                data: history.map(entry => entry.production),
                 borderColor: "green",
                 backgroundColor: "rgba(0, 255, 0, 0.2)",
                 borderWidth: 2,
@@ -141,7 +141,7 @@ export default function Dashboard({ params }) {
             },
             {
                 label: "Total Consumption",
-                data: history.map(entry => entry.consumption),  
+                data: history.map(entry => entry.consumption),
                 borderColor: "red",
                 backgroundColor: "rgba(255, 0, 0, 0.2)",
                 borderWidth: 2,
