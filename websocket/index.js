@@ -44,7 +44,8 @@ io.on('connection', (socket) => {
         socket.emit('meterReadingUpdate', { time: currentTime, reading: newProduction, production: newProduction, consumption: newConsumption, balance: balance });
     }, 1000); // Emit data every 1 second
 
-
+    // fetch supply demand & process them  () ....
+    
     socket.on('disconnect', () => {
         console.log('Client dissconnected');
         clearInterval(meterInterval);

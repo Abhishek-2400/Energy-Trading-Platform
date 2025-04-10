@@ -17,7 +17,7 @@ const RealTimeGraph = () => {
     const [offerAmount, setOfferAmount] = useState("");
     const [offerPrice, setOfferPrice] = useState("");
     const [userid, setUserId] = useState("");
-    console.log(userid, 111);
+
     useEffect(() => {
         const socket1 = io("https://websocket-p2p.onrender.com");
         const socket2 = io("https://apachekafka-p2p.onrender.com");
