@@ -19,13 +19,10 @@ export async function POST(req) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
-
         const profile = {
             approxTokens: approxTokens,
             maxPrice: maxPrice
         };
-
-
 
         user.profile = profile;
         console.log(user.profile, 90000);
