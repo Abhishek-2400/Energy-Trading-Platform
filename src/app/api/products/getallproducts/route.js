@@ -2,19 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "../../../../dbconfig/dbConfig";
 import User from "../../../../model/users";
 
-// Connect to MongoDB
+export const dynamic = "force-dynamic"; // ✅ disable caching on Vercel
+
 connect();
 
 export async function GET(request) {
     try {
         const allusers = await User.find({}, { products: 1, email: 1, _id: 0 });
 
-        // Combine each product with its seller's email
         const productsWithSellerMail = allusers.flatMap(({ email, products }) =>
             products.map(product => ({ ...product, selleremail: email }))
         );
 
-        // Handle case when no products are found
         if (!productsWithSellerMail || productsWithSellerMail.length === 0) {
             return new NextResponse(
                 JSON.stringify({ error: "No products found" }),
@@ -28,7 +27,6 @@ export async function GET(request) {
             );
         }
 
-        // Return products with email, disabling caching
         return new NextResponse(
             JSON.stringify({ data: productsWithSellerMail }),
             {
