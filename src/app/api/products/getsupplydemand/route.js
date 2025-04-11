@@ -5,7 +5,7 @@ import { preloadFont } from "next/dist/server/app-render/entry-base";
 
 export async function GET(req) {
     await connect();
-    const buyers = await User.find({}, { profile: 1, email: 1, _id: 0 });
+    const buyers = await User.find({}, { buyerPreference: 1, email: 1, _id: 0 });
     const sellers = await User.find({}, { email: 1, _id: 0, products: 1 });
     //console.log(users, 1000);
     if (!buyers || !sellers) {
