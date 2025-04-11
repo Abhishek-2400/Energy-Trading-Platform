@@ -20,14 +20,14 @@ export async function POST(req) {
         }
 
 
-        const profile = {
-            approxTokens: approxTokens,
-            maxPrice: maxPrice
+        const buyerPreferences = {
+            demand: approxTokens,
+            price: maxPrice
         };
 
 
 
-        user.profile = profile;
+        user.buyerPreference = buyerPreferences;
         console.log(user.profile, 90000);
         console.log(user, 10000);
 

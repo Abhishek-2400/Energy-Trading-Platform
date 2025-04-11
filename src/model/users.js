@@ -13,16 +13,16 @@ const EnergyRecordSchema = new mongoose.Schema({
     timestamp: { type: String, require: true } // Store the timestamp for tracking records
 });
 
-const profileSchema = new mongoose.Schema({
-    maxPrice: {
-        type: Number,
-        required: true
-    },
-    approxTokens: {
-        type: Number,
-        required: true
-    }
-}, { _id: false });
+// const profileSchema = new mongoose.Schema({
+//     maxPrice: {
+//         type: Number,
+//         required: true
+//     },
+//     approxTokens: {
+//         type: Number,
+//         required: true
+//     }
+// }, { _id: false });
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
@@ -42,9 +42,9 @@ const userSchema = new mongoose.Schema({
         type: Array,
         default: [],
     },
-    profile: {
-        approxTokens: { type: Number, default: 0 },
-        maxPrice: { type: Number, default: 0 }
+    buyerPreference: {
+        demand: { type: Number, default: 0 },
+        price: { type: Number, default: 0 }
     },
     transactions: {
         type: Array,
