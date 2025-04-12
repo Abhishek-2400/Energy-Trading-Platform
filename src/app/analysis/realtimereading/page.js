@@ -17,7 +17,7 @@ const RealTimeGraph = () => {
     const [offerAmount, setOfferAmount] = useState("");
     const [offerPrice, setOfferPrice] = useState("");
     const [userid, setUserId] = useState("");
-    console.log(userid, 111);
+
     useEffect(() => {
         const socket1 = io("https://websocket-p2p.onrender.com");
         const socket2 = io("https://apachekafka-p2p.onrender.com");
@@ -56,8 +56,9 @@ const RealTimeGraph = () => {
 
 
         return () => {
-            if (socket1.connected) socket1.disconnect();
-            if (socket2.connected) socket2.disconnect();
+            socket1.off("meterReadingUpdate");
+            socket1.disconnect();
+            socket2.disconnect();
         };
     }, [userid]); // Ensure `userid` is set before sending messages
 

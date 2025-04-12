@@ -33,7 +33,7 @@ io.on('connection', (socket) => {
     });
 
     // Emit simulated meter readings
-    setInterval(() => {
+    const meterInterval = setInterval(() => {
         const currentTime = new Date().toLocaleTimeString();
         // Simulate variable production (0-10 kW)
         const newProduction = Math.floor(Math.random() * 15);
@@ -44,9 +44,11 @@ io.on('connection', (socket) => {
         socket.emit('meterReadingUpdate', { time: currentTime, reading: newProduction, production: newProduction, consumption: newConsumption, balance: balance });
     }, 1000); // Emit data every 1 second
 
-
+    // fetch supply demand & process them  () ....
+    
     socket.on('disconnect', () => {
         console.log('Client dissconnected');
+        clearInterval(meterInterval);
     });
 
 
