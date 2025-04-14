@@ -42,6 +42,7 @@ setInterval(async () => {
             for (const product of allProducts) {
                 if (demand === 0) break;
                 if (product.tokens === 0) continue;
+                if (buyer.email === product.sellerEmail) continue;
 
                 const matchedUnits = Math.min(demand, product.tokens);
 
@@ -61,6 +62,8 @@ setInterval(async () => {
         console.log('Matched Results:', matches);
 
         //send here to smart contract for trasaction execution 
+        await axios.post('http://localhost:3000/api/products/autotrading', { matches });
+
 
     } catch (err) {
         console.log('Error fetching supply demand data:', err.message);
