@@ -9,7 +9,7 @@ const io = socketIo(server, {
     cors: { origin: '*' },
 });
 
-io.on('connection', (socket) => {
+io.on('connection', (socket) => {  // isme socket ka kaam nhi hai ye bas aise hi laga hai 
     console.log('New client connected');
 
     socket.on('disconnect', () => {
@@ -19,7 +19,7 @@ io.on('connection', (socket) => {
 
 setInterval(async () => {
     try {
-        const response = await axios.get('http://localhost:3000/api/products/getsupplydemand');
+        const response = await axios.get('https://energytrading.vercel.app/api/products/getsupplydemand');
         const sellers = response.data.sellers;
         const buyers = response.data.buyers;
 
@@ -62,7 +62,7 @@ setInterval(async () => {
         console.log('Matched Results:', matches);
 
         //send here to smart contract for trasaction execution 
-        await axios.post('http://localhost:3000/api/products/autotrading', { matches });
+        await axios.post('https://energytrading.vercel.app/api/products/autotrading', { matches });
 
 
     } catch (err) {
