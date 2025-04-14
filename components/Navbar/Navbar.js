@@ -64,7 +64,7 @@ export default function Navbar() {
             <div className="navbar-heading"><Link href='/'>EnergyHive</Link></div>
             <ul className="navbar-menu">
 
-                <li><Link href="/profile">Profile</Link></li>
+                <li><Link href="/profile">Auto Trading</Link></li>
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/worldmap">Traders</Link></li>
                 <li><Link href="/bids">Bidding</Link></li>

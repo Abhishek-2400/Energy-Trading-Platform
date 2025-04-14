@@ -4,7 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import "./profile.css";
 import { useSelector } from "react-redux";
-
+import Navbar from "../../../components/Navbar/Navbar";
 export default function Profile() {
     const email1 = useSelector((state) => state.user.currentUser.data.email);
 
@@ -37,7 +37,9 @@ export default function Profile() {
     };
 
     return (
+        
         <div className="profile-container">
+            <Navbar/>
             <div className="profile-card">
                 <h1 className="profile-title">Auto-Buy Preferences</h1>
 
