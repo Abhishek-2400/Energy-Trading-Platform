@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "../../../../dbconfig/dbConfig";
 import User from "../../../../model/users";
 
-export const dynamic = "force-dynamic"; // ✅ disable caching on Vercel
+export const dynamic = "force-dynamic"; //  disable caching on Vercel
 
 connect();
 
@@ -10,8 +10,12 @@ export async function GET(request) {
     try {
         const allusers = await User.find({}, { products: 1, email: 1, _id: 0 });
 
-        const productsWithSellerMail = allusers.flatMap(({ email, products }) =>
+        let productsWithSellerMail = allusers.flatMap(({ email, products }) =>
             products.map(product => ({ ...product, selleremail: email }))
+        );
+
+        productsWithSellerMail = productsWithSellerMail.filter(
+            product => product.tokens > 0
         );
 
         if (!productsWithSellerMail || productsWithSellerMail.length === 0) {

@@ -68,7 +68,7 @@ setInterval(async () => {
     } catch (err) {
         console.log('Error fetching supply demand data:', err.message);
     }
-}, 30000);
+}, 1000);
 
 app.get('/', (req, res) => {
     res.send('Server is running');
