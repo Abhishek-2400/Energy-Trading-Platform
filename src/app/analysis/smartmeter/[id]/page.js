@@ -152,12 +152,12 @@ export default function Dashboard({ params }) {
 
     const getEfficiencyChartData = (efficiencyData) => {
         return {
-            labels: ["Good (>0.8)", "Average (0.6 - 0.8)", "Poor (<0.6)"],
+            labels: ["Efficient", "Non- Efficent"],
             datasets: [
                 {
                     label: "Efficiency Ratio Distribution",
                     data: [stats.efficiencyRatio, 1 - stats.efficiencyRatio],
-                    backgroundColor: ["#4CAF50", "#FFC107", "#F44336"],
+                    backgroundColor: ["#3ba455", "#FFC107"],
                     hoverOffset: 5,
                 },
             ],

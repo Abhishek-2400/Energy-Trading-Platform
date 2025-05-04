@@ -45,7 +45,7 @@ export async function POST(req) {
             sellerProducts[productIndex].tokens -= units;
 
             sellerUser.products = sellerProducts;
-            sellerUser.markModified("products"); // 🔥 Important!
+            sellerUser.markModified("products"); 
 
             console.log(sellerUser.products);
 
