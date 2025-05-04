@@ -157,7 +157,7 @@ export default function Dashboard({ params }) {
                 {
                     label: "Efficiency Ratio Distribution",
                     data: [stats.efficiencyRatio, 1 - stats.efficiencyRatio],
-                    backgroundColor: ["#FFC107", "#3ba455"],
+                    backgroundColor: ["#3ba455", "#FFC107"],
                     hoverOffset: 5,
                 },
             ],
