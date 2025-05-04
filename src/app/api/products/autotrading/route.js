@@ -1,40 +1,3 @@
-// import { NextResponse } from "next/server";
-// import { connect } from "../../../../dbconfig/dbConfig";
-// import User from "../../../../model/users";
-
-// export default async function handler(req, res) {
-//     if (req.method !== 'POST') {
-//         return res.status(405).json({ message: 'Method not allowed' });
-//     }
-
-//     const { buyerEmail, sellerEmail, units } = req.body;
-
-//     try {
-//         await connect();
-
-//         const buyer = await User.findOne({ email: buyerEmail });
-//         const seller = await User.findOne({ email: sellerEmail });
-
-//         if (!buyer || !seller) {
-//             return res.status(404).json({ message: 'Buyer or Seller not found' });
-//         }
-
-//         if (buyer.tokens < units) {
-//             return res.status(400).json({ message: 'Buyer has insufficient tokens' });
-//         }
-
-//         buyer.tokens -= units;
-//         seller.tokens += units;
-
-//         await buyer.save();
-//         await seller.save();
-
-//         return res.status(200).json({ message: 'Trade executed successfully' });
-//     } catch (err) {
-//         console.error('Trade execution failed:', err);
-//         return res.status(500).json({ message: 'Internal server error' });
-//     }
-// }
 
 import { connect } from "../../../../dbconfig/dbConfig";
 import User from "../../../../model/users";
@@ -51,13 +14,19 @@ export async function POST(req) {
         }
 
         for (const match of matches) {
-            const { buyer, seller, units } = match;
+            const { buyer, seller, units, price, productUsed } = match;
 
-            const buyerUser = await User.findOne({ email: buyer });
-            const sellerUser = await User.findOne({ email: seller });
+            let buyerUser = await User.findOne({ email: buyer });
+            let sellerUser = await User.findOne({ email: seller });
+            let sellerProducts = sellerUser.products;
+            let productIndex = sellerProducts.findIndex(product => product.id == productUsed);
 
-            console.log(buyerUser.token, 899, sellerUser)
 
+            if (productIndex === -1) {
+                console.log(sellerProducts);
+                console.log(`Product not found for seller: ${seller} ${typeof (productUsed)}`);
+                continue;
+            }
 
 
             if (!buyerUser || !sellerUser) {
@@ -73,11 +42,15 @@ export async function POST(req) {
             buyerUser.token += units;
             buyerUser.buyerPreference.demand -= units;
             sellerUser.token -= units;
+            sellerProducts[productIndex].tokens -= units;
+
+            sellerUser.products = sellerProducts;
+            sellerUser.markModified("products"); // 🔥 Important!
+
+            console.log(sellerUser.products);
 
             await buyerUser.save();
             await sellerUser.save();
-            console.log(buyerUser, sellerUser);
-
         }
 
         return NextResponse.json({ message: "All trades processed" }, { status: 200 });
