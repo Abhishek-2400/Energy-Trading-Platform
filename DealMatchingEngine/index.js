@@ -35,6 +35,7 @@ setInterval(async () => {
 
         // Sort products by price (ascending)
         allProducts.sort((a, b) => a.priceperunit - b.priceperunit);
+      
 
         for (const buyer of buyers) {
             let demand = buyer.buyerPreference.demand;
@@ -42,7 +43,7 @@ setInterval(async () => {
             for (const product of allProducts) {
                 if (demand === 0) break;
                 if (product.tokens === 0) continue;
-                if (buyer.email === product.sellerEmail) continue;
+               // if (buyer.email === product.sellerEmail) continue;
 
                 const matchedUnits = Math.min(demand, product.tokens);
 
