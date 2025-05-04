@@ -19,8 +19,8 @@ io.on('connection', (socket) => {  // isme socket ka kaam nhi hai ye bas aise hi
 
 setInterval(async () => {
     try {
-        const response = await axios.get('http://localhost:3000/api/products/getsupplydemand');
-        // const response = await axios.get('https://energytrading.vercel.app/api/products/getsupplydemand');
+        //const response = await axios.get('http://localhost:3000/api/products/getsupplydemand');
+         const response = await axios.get('https://energytrading.vercel.app/api/products/getsupplydemand');
         const sellers = response.data.sellers;
         const buyers = response.data.buyers;
 
@@ -66,8 +66,8 @@ setInterval(async () => {
         console.log('Matched Results:', matches);
 
         //send here to smart contract for trasaction execution 
-        const response2 = await axios.post('http://localhost:3000/api/products/autotrading', { matches });
-        // const response2 = await axios.post('https://energytrading.vercel.app/api/products/autotrading', { matches });
+        //const response2 = await axios.post('http://localhost:3000/api/products/autotrading', { matches });
+         const response2 = await axios.post('https://energytrading.vercel.app/api/products/autotrading', { matches });
         console.log('Response from auto trading:', response2.data);
 
     } catch (err) {
