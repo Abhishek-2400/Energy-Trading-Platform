@@ -3,7 +3,9 @@ import { connect } from "../../../../dbconfig/dbConfig";
 import User from "../../../../model/users";
 import { NextResponse } from "next/server";
 
+
 export async function POST(req) {
+
     try {
         await connect();
         const body = await req.json();
@@ -15,7 +17,7 @@ export async function POST(req) {
 
         for (const match of matches) {
             const { buyer, seller, units, price, productUsed } = match;
-
+             
             let buyerUser = await User.findOne({ email: buyer });
             let sellerUser = await User.findOne({ email: seller });
             let sellerProducts = sellerUser.products;
@@ -45,7 +47,9 @@ export async function POST(req) {
             sellerProducts[productIndex].tokens -= units;
 
             sellerUser.products = sellerProducts;
-            sellerUser.markModified("products"); 
+
+
+            sellerUser.markModified("products");
 
             console.log(sellerUser.products);
 
@@ -53,7 +57,7 @@ export async function POST(req) {
             await sellerUser.save();
         }
 
-        return NextResponse.json({ message: "All trades processed" }, { status: 200 });
+        return NextResponse.json({ message: "All trades processed", buyer: buyerUser, seller: sellerUser }, { status: 200 });
     } catch (err) {
         console.error("Trade execution failed:", err);
         return NextResponse.json({ message: "Internal server error" }, { status: 500 });

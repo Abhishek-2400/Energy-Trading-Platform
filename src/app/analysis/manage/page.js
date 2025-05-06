@@ -54,21 +54,24 @@ const Weekly = () => {
                 <div className="dashboard-content">
                     <h2>Manage Listings</h2>
                     <div className="listings-container">
-                        {listings.map((listing) => (
-                            <div key={listing.id} className="listing-card">
-                                <h3>{listing.sellername}</h3>
-                                <p><strong>Price per Unit:</strong> {listing.priceperunit}</p>
-                                <p><strong>Tokens:</strong> {listing.tokens}</p>
-                                <p><strong>Location:</strong> {listing.locations}</p>
-                                <button
-                                    className="delete-button"
-                                    onClick={() => handleDelete(listing.id, listing.tokens)}
-                                >
-                                    Delete
-                                </button>
-                            </div>
-                        ))}
+                        {listings
+                            .filter((listing) => listing.tokens > 0) // filter listings with tokens > 0
+                            .map((listing) => (
+                                <div key={listing.id} className="listing-card">
+                                    <h3>{listing.sellername}</h3>
+                                    <p><strong>Price per Unit:</strong> {listing.priceperunit}</p>
+                                    <p><strong>Tokens:</strong> {listing.tokens}</p>
+                                    <p><strong>Location:</strong> {listing.locations}</p>
+                                    <button
+                                        className="delete-button"
+                                        onClick={() => handleDelete(listing.id, listing.tokens)}
+                                    >
+                                        Delete
+                                    </button>
+                                </div>
+                            ))}
                     </div>
+
                 </div>
             </div>
         </div>

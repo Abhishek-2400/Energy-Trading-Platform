@@ -152,7 +152,7 @@ export default function Dashboard({ params }) {
 
     const getEfficiencyChartData = (efficiencyData) => {
         return {
-            labels: ["Efficient", "Non- Efficent"],
+            labels: ["Efficient", "Non - Efficient"],
             datasets: [
                 {
                     label: "Efficiency Ratio Distribution",
